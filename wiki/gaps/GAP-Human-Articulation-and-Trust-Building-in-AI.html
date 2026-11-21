@@ -1,0 +1,59 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>組織意義建構 Wiki</title><style>
+body{margin:0;background:#f5f4f0;color:#202020;font:1.05rem/1.7 system-ui,sans-serif}main{max-width:65rem;margin:auto;padding:clamp(1rem,4vw,3rem)}a{color:#94351e}table{border-collapse:collapse;display:block;overflow:auto}td,th{padding:.6rem;border:1px solid #b9b4a8}pre{overflow:auto;background:#ebe7dc;padding:1rem}.flow{display:grid;gap:.9rem;padding-left:1.4rem}.flow li{padding:.7rem 1rem;border-left:5px solid #c29b38;background:white}.flow small{color:#4d412a}
+</style></head><body><main><nav><a href="../../dashboard.html">Wiki 儀表板</a> · <a href="../../slides/2026-11-21-graph-draft/presentation.html">教學簡報</a></nav><h1>理論缺口：人作為意義轉譯者 (Human Articulation &amp; Trust-Building in AI)</h1>
+<blockquote>
+<p>💡 <strong>核心研究命題</strong>：AI 產品本身不具備組織情境意識、自我辯護與情緒感應能力。<strong>組織對 AI 產出的「信任」與「接受程度」，本質上是由人類工作者透過隱性的「情境補充、結果微調、情緒安撫與意義轉譯（Articulation, Sensegiving &amp; Emotional Coherence）」人為支撐起來的</strong>。主流文獻長期忽視了這層關鍵的人類隱形勞動。</p>
+</blockquote>
+<hr>
+<h2>1. 理論張力與現實困境 (Theoretical Tension)</h2>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;冷冰冰的 AI 機率預測&lt;br/&gt;(缺乏情境、引發直覺焦慮)&quot;] --&gt;|直接推廣| B[&quot;❌ 利害關係人質疑與抗拒&lt;br/&gt;(冷熱認知失衡、信任破裂)&quot;]
+    A --&gt;|人類專家介入| C[&quot;🧑‍💼 人類工作者進行三階轉譯&lt;br/&gt;(情境補充、修辭包裝、情緒連貫化)&quot;]
+    C --&gt;|重構為合理敘事與具身人造物| D[&quot;✅ 建立組織信任與順利採納&lt;br/&gt;(高接受度與心理安全感)&quot;]
+</code></pre>
+<ul>
+<li><strong>科技至上論的落差</strong>：<ul>
+<li>許多企業或研發團隊誤以為「只要演算法精準，就能取代人力並直接被業務端採納」。</li>
+<li>然而在實際組織運作中，直接採用未經人類審查的 AI 建議，往往引發客戶或主管對責任歸屬、道德風險與不合常理的強烈抗拒。</li>
+</ul>
+</li>
+<li><strong>未被充分理論化的研究留白</strong>：<ul>
+<li>到底人類工作者在「AI 產出」與「決策拍板」的中間，進行了哪些<strong>隱形的微調、修辭與情緒安撫工作</strong>？</li>
+<li>人類如何調動內隱知識（Tacit Knowledge）替 AI 進行「信任背書（Trust Brokerage）」？</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>2. 跨文獻理論整合借鏡</h2>
+<ol>
+<li><strong><a href="../concepts/Articulation-and-Sensegiving.html">闡明（Articulation）</a> 與 <a href="../concepts/Language-and-Discourse-in-Sensemaking.html">語言三層轉譯</a> (Weick 2005; Whittle 2023)</strong>：<ul>
+<li>AI 是機率統計產物，缺乏認知意圖。人類工作者在「認知層」校準框架、在「實踐層」運用修辭將冰冷指標包裝為商業意涵、在「論述層」對齊企業制度與合規要求。</li>
+</ul>
+</li>
+<li><strong><a href="../concepts/Micro-Practices-of-Sensegiving.html">微觀賦意動作</a> (Rouleau 2005)</strong>：<ul>
+<li>人類運用「轉譯（Translating）」銜接專業鴻溝、運用「超編碼（Overcoding）」對接不同受眾語境、運用「辯護（Justifying）」將 AI 必然出現的統計誤差合理化為可控風險。</li>
+</ul>
+</li>
+<li><strong><a href="../concepts/Emotion-in-Sensemaking.html">情緒連貫性</a> (Maitlis et al. 2013)</strong>：<ul>
+<li>AI 決策之所以被拒絕，往往源於「冷熱認知斷裂」——冷認知（數據預測）違背熱認知（直覺不安）。人類專家手動調整提示詞與參數，目的正在於讓決策重新達成情緒連貫性。</li>
+</ul>
+</li>
+<li><strong><a href="../concepts/Sociomateriality-and-Artefacts.html">實體人造物作為具身線索</a> (Yeow &amp; Chua 2020)</strong>：<ul>
+<li>人類專家透過操作儀表板、互動 Demo，將抽象的演算法邏輯實體化為客戶可直接觸摸驗證的具身化線索。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>3. 可延伸之碩士論文研究問題 (Research Questions)</h2>
+<ul>
+<li><strong>RQ 1</strong>：在知識密集型產業（如醫療診斷、法律合約審查、金融授信）中，一線專業人員如何對生成式 AI 的建議進行「情境再脈絡化（Re-contextualization）」與修辭轉譯？</li>
+<li><strong>RQ 2</strong>：主管與外部客戶對 AI 輔助決策的信任，究竟是建立在對「演算法本身」的信心，還是建立在對「人類專家微調後的故事與情緒連貫」的信任上？</li>
+</ul>
+<hr>
+<h2>🔗 知識網絡關聯</h2>
+<ul>
+<li>來源文獻：<a href="../sources/Weick-2005.html">Weick-2005</a>, <a href="../sources/Rouleau-2005.html">Rouleau-2005</a>, <a href="../sources/Maitlis-2013.html">Maitlis-2013</a>, <a href="../sources/Yeow-Chua-2020.html">Yeow-Chua-2020</a>, <a href="../sources/Whittle-2023.html">Whittle-2023</a></li>
+<li>核心理論機制：<a href="../concepts/Articulation-and-Sensegiving.html">Articulation-and-Sensegiving</a>, <a href="../concepts/Micro-Practices-of-Sensegiving.html">Micro-Practices-of-Sensegiving</a>, <a href="../concepts/Emotion-in-Sensemaking.html">Emotion-in-Sensemaking</a>, <a href="../concepts/Language-and-Discourse-in-Sensemaking.html">Language-and-Discourse-in-Sensemaking</a>, <a href="../concepts/Sociomateriality-and-Artefacts.html">Sociomateriality-and-Artefacts</a>, <a href="../concepts/Plausibility-over-Accuracy.html">Plausibility-over-Accuracy</a></li>
+<li>互補缺口卡片：<a href="GAP-AI-Adoption-Indeterminacy-vs-Human-Sensemaking.html">GAP-AI-Adoption-Indeterminacy-vs-Human-Sensemaking</a>, <a href="GAP-Sociomaterial-Embodiment-in-AI-Trust.html">GAP-Sociomaterial-Embodiment-in-AI-Trust</a></li>
+</ul>
+</main></body></html>
