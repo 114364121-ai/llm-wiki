@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 時代下的科技意會 (Technology Sensemaking) | Wiki 知識庫儀表板</title>
+  <style>
+    /* ==========================================================================
+       BAUHAUS INDUSTRIAL DESIGN SYSTEM (SOFT INDUSTRIAL & ROUNDED AESTHETIC)
+       ========================================================================== */
+    :root {
+      --bg: #F6F5F2;
+      --card-bg: #FFFFFF;
+      --text-main: #1E1E1E;
+      --text-muted: #5A5A5A;
+      --accent-wood: #C29B38;
+      --accent-red: #D84315;
+      --accent-blue: #2B4C7E;
+      --border-color: #1E1E1E;
+      --tag-bg: #EAE8E1;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --radius-pill: 24px;
+      --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.05), 3px 3px 0 var(--border-color);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Mode Switcher Bar (Rounded & Soft Industrial) */
+    .top-mode-bar {
+      background: var(--text-main);
+      color: #FFF;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--accent-wood);
+      z-index: 100;
+    }
+
+    .vault-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .vault-badge {
+      background: var(--accent-red);
+      color: #FFF;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+    }
+
+    .vault-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .vault-meta {
+      font-size: 0.8rem;
+      color: #CCC;
+    }
+
+    .mode-switch-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .mode-btn {
+      background: #2D2D2D;
+      border: 1.5px solid #555;
+      color: #EEE;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+
+    .mode-btn:hover {
+      background: #444;
+      color: #FFF;
+      border-color: #888;
+    }
+
+    .mode-btn.active {
+      background: var(--accent-wood);
+      border-color: var(--accent-wood);
+      color: #FFF;
+      box-shadow: 0 0 10px rgba(194, 155, 56, 0.4);
+    }
+
+    /* =======================================================
+       WIKI CARDS VIEW CONTAINER (ROUNDED AESTHETIC)
+       ======================================================= */
+    #cardsView {
+      display: block;
+      padding: 32px 24px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .vault-header {
+      border-bottom: 3px solid #D6D3C9;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .vault-header h1 {
+      font-size: 2.15rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 7px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--border-color);
+      transition: all 0.12s ease;
+    }
+
+    .tab-btn:hover {
+      background: var(--border-color);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-red);
+      color: #FFF;
+      border-color: var(--accent-red);
+    }
+
+    .search-box {
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      background: var(--card-bg);
+      box-shadow: 2px 2px 0px var(--border-color);
+      width: 290px;
+      outline: none;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .search-box:focus {
+      box-shadow: 0 0 0 3px rgba(194, 155, 56, 0.35), 2px 2px 0 var(--border-color);
+    }
+
+    .source-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: #EFECE3;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid #DFDBD0;
+    }
+
+    .source-chip {
+      background: #FFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.12s;
+    }
+
+    .source-chip:hover {
+      background: var(--tag-bg);
+    }
+
+    .source-chip.active {
+      background: var(--accent-wood);
+      color: #FFF;
+      border-color: var(--accent-wood);
+      box-shadow: 1px 1px 0 var(--border-color);
+    }
+
+    /* Grid & Cards with Soft Rounded Corners */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 4px 4px 0 var(--border-color);
+    }
+
+    .card-type {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+      display: inline-block;
+      padding: 3px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      width: fit-content;
+    }
+
+    .type-source { background: #E8F5E9; color: #2E7D32; border-color: #2E7D32; }
+    .type-concept { background: #E3F2FD; color: #1565C0; border-color: #1565C0; }
+    .type-gap { background: #FFF3E0; color: #E65100; border-color: #E65100; }
+    .type-rd { background: #F3E5F5; color: #7B1FA2; border-color: #7B1FA2; }
+    .type-synthesis { background: #FFEBEE; color: #C62828; border-color: #C62828; }
+
+    .card-title {
+      font-size: 1.18rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .card-summary-box {
+      background: #F9F8F5;
+      border: 1px solid #E6E3D8;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      flex-grow: 1;
+    }
+
+    .summary-badge {
+      display: inline-block;
+      background: #E5E1D4;
+      color: #333;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .card-excerpt {
+      font-size: 0.88rem;
+      color: #2D2D2D;
+      line-height: 1.55;
+    }
+
+    .card-meta {
+      border-top: 1px dashed #D2CFCA;
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      padding: 2px 7px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 4px;
+    }
+
+    .action-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: var(--accent-red);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.15s ease;
+    }
+
+    .card:hover .action-label {
+      gap: 7px;
+    }
+
+    /* Modal for Deep Theoretical Notes (Rounded) */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(26, 26, 26, 0.65);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-content {
+      background: #FFF;
+      border: 2.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.2), 6px 6px 0px var(--border-color);
+      width: 880px;
+      max-width: 95vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 32px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: var(--border-color);
+      color: #FFF;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.12s;
+    }
+
+    .modal-close:hover {
+      background: var(--accent-red);
+      transform: scale(1.05);
+    }
+
+    .modal-body h2 {
+      font-size: 1.75rem;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #E0DDD4;
+      padding-bottom: 8px;
+    }
+
+    .modal-body h3 {
+      font-size: 1.2rem;
+      margin: 20px 0 8px;
+      color: var(--accent-red);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .modal-body p {
+      margin-bottom: 12px;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: #2D2D2D;
+    }
+
+    .modal-body ul, .modal-body ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+      line-height: 1.62;
+    }
+
+    .modal-body li {
+      margin-bottom: 6px;
+    }
+
+    .modal-body blockquote {
+      border-left: 4px solid var(--accent-wood);
+      background: #FBF9F2;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 18px;
+      margin: 16px 0;
+      font-style: italic;
+    }
+
+    .modal-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.88rem;
+      border: 1px solid #CCC;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .modal-body th, .modal-body td {
+      border: 1px solid #DDD;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .modal-body th {
+      background: #EFECE3;
+      font-weight: 800;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Mode Switcher Bar -->
+  <header class="top-mode-bar">
+    <div class="vault-identity">
+      <span class="vault-badge">Bauhaus Style</span>
+      <span class="vault-title">AI 時代下的科技意會 (Technology Sensemaking)</span>
+      <span class="vault-meta">政大科智所課程成果 | 7 篇頂刊整合知識網絡</span>
+    </div>
+
+    <nav class="mode-switch-group" aria-label="作業導覽">
+      <a class="mode-btn" href="slides/2026-11-21-graph-draft/presentation.html">教學簡報</a>
+    <a class="mode-btn" href="workflow.html">Graph 與實跑紀錄</a>
+    </nav>
+  </header>
+
+  <!-- VIEW 2: WIKI CARDS VIEW -->
+  <main id="cardsView">
+    <div class="vault-header">
+      <h1>組織意義建構與 AI 科技採納知識庫 (27 Cards)</h1>
+      <p style="color: var(--text-muted); font-size: 1.02rem; margin-top: 4px;">
+        卡片表面呈現【核心要義】，點擊「展開深度理論筆記」即可閱覽完整理論維度、機制推導與研究問題。
+      </p>
+    </div>
+
+    <div class="controls">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="filterCards('all')">全部卡片 (All 27)</button>
+        <button class="tab-btn" onclick="filterCards('source')">📚 7篇頂刊文獻 (Sources)</button>
+        <button class="tab-btn" onclick="filterCards('concept')">💡 核心理論概念 (12 Concepts)</button>
+        <button class="tab-btn" onclick="filterCards('gap')">🎯 碩論研究缺口 (3 Gaps)</button>
+        <button class="tab-btn" onclick="filterCards('rd')">🔬 研究推論模式 (4 RDs)</button>
+        <button class="tab-btn" onclick="filterCards('synthesis')">⚖️ 七篇文獻對話矩陣 (Synthesis)</button>
+      </div>
+      <input type="text" id="searchBox" class="search-box" placeholder="🔍 搜尋理論、作者、關鍵字..." oninput="searchCards()">
+    </div>
+
+    <!-- Quick Filter by Author -->
+    <div class="source-filter-bar">
+      <span>⚡ 依文獻快速聚焦：</span>
+      <button class="source-chip active" onclick="filterSource('all')">全部文獻 (All)</button>
+      <button class="source-chip" onclick="filterSource('weick')">Weick et al. (2005)</button>
+      <button class="source-chip" onclick="filterSource('maitlis05')">Maitlis (2005)</button>
+      <button class="source-chip" onclick="filterSource('rouleau')">Rouleau (2005)</button>
+      <button class="source-chip" onclick="filterSource('maitlis13')">Maitlis et al. (2013)</button>
+      <button class="source-chip" onclick="filterSource('maitlis14')">Maitlis & Christianson (2014)</button>
+      <button class="source-chip" onclick="filterSource('yeow')">Yeow & Chua (2020)</button>
+      <button class="source-chip" onclick="filterSource('whittle')">Whittle et al. (2023)</button>
+    </div>
+
+    <div class="grid" id="cardsGrid">
+      <!-- Dynamic Card Elements will render here -->
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // Wiki 27 Cards Data (Richly structured from Wiki files)
+    const wikiData = [
+      // 1. Sources (7 Papers)
+      {
+        id: "src-weick-2005",
+        sourceRef: "weick",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Weick, Sutcliffe, & Obstfeld (2005)",
+        subtitle: "Organizing and the Process of Sensemaking (Organization Science)",
+        actionLabel: "🔍 查看五大維度深度解析 ➔",
+        excerpt: "意義建構經典十週年總綱。批判理性決策論，提出察覺括注、合理性勝於精確性、ESR演化循環與900g早產兒微觀質性切片。組織是被說出來的（Talked into existence）。",
+        tags: ["sensemaking", "organizing", "articulation", "plausibility"],
+        details: `
+          <h2>Organizing and the Process of Sensemaking (Weick et al., 2005)</h2>
+          <p><strong>作者</strong>：Karl E. Weick, Kathleen M. Sutcliffe, David Obstfeld<br><strong>出處</strong>：<em>Organization Science</em>, 16(4), 409-421</p>
+          
+          <h3>【維度 A：理論背景與研究問題】</h3>
+          <p>挑戰理性選擇模型（Rational Decision-Making）將組織視為靜態結構的盲點。提出組織不是「做出選擇」，而是持續處於「意義詮釋（Interpretation）」的流動歷程（Organizing）。</p>
+
+          <h3>【維度 B：核心主張與機制】</h3>
+          <ul>
+            <li><strong>察覺與括注 (Noticing & Bracketing)</strong>：從無序的流動中切出線索並貼上標籤。</li>
+            <li><strong>闡明與言說 (Articulation)</strong>：隱性直覺必須透過語言溝通轉化為公共行動資產。</li>
+            <li><strong>合理性勝於精確性 (Plausibility over Accuracy)</strong>：在未知混亂中，組織依賴「合情合理、能讓人繼續行動的故事」，而非等待 100% 精確的客觀數據。</li>
+          </ul>
+
+          <h3>【維度 C：研究設計與推論模式】</h3>
+          <p>從小兒科加護病房護士察覺 900g 早產兒異常的 2 小時質性切片（Vignette），漂亮躍遷至全組織層次的 ESR（Enactment-Selection-Retention）內部演化循環。</p>
+
+          <h3>【維度 D：對 AI 科技採納的啟示】</h3>
+          <p>AI 輸出本質是機率性假定，組織需要的是能凝聚共識的「合理故事」，而非冰冷統計指標。人類在其中扮演不可或缺的意義修補者。</p>
+
+          <h3>【維度 E：重要引文金句】</h3>
+          <blockquote>"[S]ensemaking is, importantly, an issue of language, talk, and communication. Situations, organizations, and environments are talked into existence." (p. 409)</blockquote>
+        `
+      },
+      {
+        id: "src-maitlis-2005",
+        sourceRef: "maitlis05",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Maitlis (2005)",
+        subtitle: "The Social Processes of Organizational Sensemaking (AMJ)",
+        actionLabel: "🔍 查看 2x2 矩陣與實務啟示 ➔",
+        excerpt: "交響樂團 2 年縱向多個案研究。提出領導者賦意（控制度）與利害關係人賦意（活絡度）的 2x2 四大意義建構型態：引導型、碎裂型、限制型、極小化型。",
+        tags: ["sensegiving", "2x2-matrix", "orchestras", "stakeholders"],
+        details: `
+          <h2>The Social Processes of Organizational Sensemaking (Maitlis, 2005)</h2>
+          <p><strong>作者</strong>：Sally Maitlis<br><strong>出處</strong>：<em>Academy of Management Journal</em>, 48(1), 21-49</p>
+
+          <h3>【維度 A：理論背景與研究問題】</h3>
+          <p>過去意義建構多聚焦領導者單向「由上而下」的賦意，忽略了利害關係人（音樂家、董事會、工會）的能動性。本文探討兩者交互作用如何決定組織意義產出的豐富度與持久度。</p>
+
+          <h3>【維度 B：2x2 四大意義建構型態】</h3>
+          <ul>
+            <li><strong>🌟 引導型 (Guided)</strong>：高領導控制 × 高利害關係人活絡 ➔ 產出融貫且受廣泛支持的集體意義（AI 落地最佳解）。</li>
+            <li><strong>⚠️ 碎裂型 (Fragmented)</strong>：低領導控制 × 高利害關係人活絡 ➔ 各自為政、互相推諉、意義混亂（Shadow AI 陷阱）。</li>
+            <li><strong>🚫 限制型 (Restricted)</strong>：高領導控制 × 低利害關係人活絡 ➔ 高層單向壓制、基層陽奉陰違（強制換工具引發怠工）。</li>
+            <li><strong>💤 極小化型 (Minimal)</strong>：低領導控制 × 低利害關係人活絡 ➔ 集體麻木、系統淪為裝飾品。</li>
+          </ul>
+
+          <h3>【維度 D：對 AI 採納之啟示】</h3>
+          <p>推廣 AI 絕非老闆一紙行政命令（限制型）即可解決。成功的組織必須打造「引導型生態」：高層提供方向，並鼓勵基層回饋提示詞與微調經驗。</p>
+        `
+      },
+      {
+        id: "src-rouleau-2005",
+        sourceRef: "rouleau",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Rouleau (2005)",
+        subtitle: "Micro-Practices of Strategic Sensemaking & Sensegiving (JMS)",
+        actionLabel: "🔍 查看四大微觀實踐動作 ➔",
+        excerpt: "服裝公司轉型民族誌。提出中階主管調動內隱知識的「第三階解釋」，提煉轉譯 (Translating)、超編碼 (Overcoding)、規訓 (Disciplining)、辯護 (Justifying) 四大微觀賦意實踐。",
+        tags: ["micro-practices", "sensegiving", "middle-managers", "tacit-knowledge"],
+        details: `
+          <h2>Micro-Practices of Strategic Sensemaking and Sensegiving (Rouleau, 2005)</h2>
+          <p><strong>作者</strong>：Linda Rouleau<br><strong>出處</strong>：<em>Journal of Management Studies</em>, 42(7), 1413-1441</p>
+
+          <h3>【維度 B：核心機制 —— 四大策略微觀實踐】</h3>
+          <ul>
+            <li><strong>1. 轉譯 (Translating)</strong>：調動日常言說，將外來的抽象戰略換成在地熟悉的溝通代碼。</li>
+            <li><strong>2. 超編碼 (Overcoding)</strong>：依對象不同靈活切換符號語境（對技術人員講架構，對管理層講商業價值）。</li>
+            <li><strong>3. 規訓 (Disciplining)</strong>：透過日常操作常規與檢核標準，規範組織成員的行為模式。</li>
+            <li><strong>4. 辯護 (Justifying)</strong>：動用高位階價值觀（客戶利益、企業責任），為新做法的瑕疵或不適應提供合理化說詞。</li>
+          </ul>
+
+          <h3>【維度 D：人作為 AI 意義轉譯者】</h3>
+          <p>AI 算得出結果但無法自我辯護。一線專家正是透過這四大微觀實踐，手動將冷硬的 AI 機率預測包裝為利害關係人能信任的商業決策。</p>
+        `
+      },
+      {
+        id: "src-maitlis-2013",
+        sourceRef: "maitlis13",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Maitlis, Vogus, & Lawrence (2013)",
+        subtitle: "Sensemaking and Emotion in Organizations (Organizational Psychology Review)",
+        actionLabel: "🔍 查看情緒三階段與連貫性 ➔",
+        excerpt: "情緒意會三階段模型：觸發（中度負向情緒警訊）、塑造（正向生成型 vs. 負向整合型；特定自豪/內疚之社會型 vs. 羞恥/傲慢之孤立型）、結論（情緒連貫性）。冷熱認知平衡。",
+        tags: ["emotion", "emotional-coherence", "dual-tuning", "psychological-safety"],
+        details: `
+          <h2>Sensemaking and Emotion in Organizations (Maitlis et al., 2013)</h2>
+          <p><strong>作者</strong>：Sally Maitlis, Timothy J. Vogus, Thomas B. Lawrence<br><strong>出處</strong>：<em>Organizational Psychology Review</em>, 3(3), 222-247</p>
+
+          <h3>【維度 A：核心理論焦點】</h3>
+          <p>打破 Weick 早期將情緒視為干擾雜訊或單純生理喚起的限制，論證「感知情緒（Felt Emotion）」是意義建構的感知天線與燃料推進器。</p>
+
+          <h3>【維度 B：三階段歷程模型】</h3>
+          <ul>
+            <li><strong>1. 觸發 (Triggering)</strong>：中等強度的負向情緒（挫折、焦慮）最能打破認知惰性，發出「需要意會」的警訊。</li>
+            <li><strong>2. 塑造 (Shaping)</strong>：負向情緒引導「整合型糾錯意會」（證據導向、查核線索）；正向情緒引導「生成型意會」（擴展創意、雙重調適）。</li>
+            <li><strong>3. 結論 (Concluding)</strong>：引入情緒連貫性理論（Emotional Coherence），當「詮釋、情緒、行動」三者達成一致時，決策才具合理性。</li>
+          </ul>
+
+          <h3>【維度 D：對 AI 採納之啟示】</h3>
+          <p>使用者對 AI 的焦慮是不可多得的「糾錯燃料」；AI 輸出若引發專家強烈的直覺不對勁，在冷熱認知失衡下決策絕不會被採納。必須靠人類微調達成情緒連貫。</p>
+        `
+      },
+      {
+        id: "src-maitlis-2014",
+        sourceRef: "maitlis14",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Maitlis & Christianson (2014)",
+        subtitle: "Sensemaking in Organizations: Taking Stock and Moving Forward (Annals)",
+        actionLabel: "🔍 查看二十年綜述與前沿 ➔",
+        excerpt: "意義建構二十年全景綜述。提出權威整合定義、四類觸發源（危機、威脅、身分破裂、干預），拓展物質性 (Sociomateriality) 與時間性前沿。",
+        tags: ["review", "sociomateriality", "temporality", "triggers"],
+        details: `
+          <h2>Sensemaking in Organizations: Taking Stock (Maitlis & Christianson, 2014)</h2>
+          <p><strong>作者</strong>：Sally Maitlis, Marlys K. Christianson<br><strong>出處</strong>：<em>Academy of Management Annals</em>, 8(1), 57-125</p>
+
+          <h3>【維度 B：重要理論貢獻】</h3>
+          <ul>
+            <li><strong>整合定義</strong>：意會是組織成員藉由提取線索、做出解釋、採取行動，進而建構出「主體間共享意義（Intersubjective meaning）」的動態歷程。</li>
+            <li><strong>前沿拓展</strong>：確立了「物質性（Sociomateriality）」——意義建構不僅在腦袋中，更植根於人造物、工具與實體空間的互動。</li>
+          </ul>
+
+          <h3>【維度 D：對 AI 身分認同之啟示】</h3>
+          <p>AI 引進往往衝擊專業人員的專業認同（Identity Threat）。若忽視成員的身分防衛，將招致強烈抵制。</p>
+        `
+      },
+      {
+        id: "src-yeow-2020",
+        sourceRef: "yeow",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Yeow & Chua (2020)",
+        subtitle: "Multiparty Sensemaking: A Technology-Vendor Selection Case Study (ISJ)",
+        actionLabel: "🔍 查看三循環與具身線索 ➔",
+        excerpt: "律所雲端招標歷程案例。建構即時、回溯、決策三大交織循環；揭示 Sensebreaking 是漸進累積的多方矛盾線索歷程；提出實體人造物作為具身化線索（Embodied cues）。",
+        tags: ["is-procurement", "sensebreaking", "artefacts", "requisite-variety"],
+        details: `
+          <h2>Multiparty Sensemaking: Technology-Vendor Selection (Yeow & Chua, 2020)</h2>
+          <p><strong>作者</strong>：Adrian Yong Kwang Yeow, Cecil Eng Huang Chua<br><strong>出處</strong>：<em>Information Systems Journal</em>, 30(2), 334-368</p>
+
+          <h3>【維度 B：科技採購關鍵機制】</h3>
+          <ul>
+            <li><strong>三大循環</strong>：即時循環（線索拼湊） ➔ 回溯循環（跨方案橫向對比） ➔ 決策循環（前瞻性對齊）。決策靠「充分性與合理性」，而非客觀精確。</li>
+            <li><strong>漸進式破意 (Sensebreaking)</strong>：單一廠商警告只會被當成恐嚇；跨來源持續出現矛盾線索，客戶才會真正打破技術迷思。</li>
+            <li><strong>人造物具身線索 (Embodied Cues)</strong>：實地參觀機房、操作 Fax to Desktop 介面，抽象概念瞬間具身化為可觸摸的信任。</li>
+          </ul>
+
+          <h3>【維度 D：對 AI 採納之啟示】</h3>
+          <p>破除對 AI 的過度簡化幻想；可操作的互動儀表板與原型 Demo，是利害關係人形成體感信任的決定性錨點。</p>
+        `
+      },
+      {
+        id: "src-whittle-2023",
+        sourceRef: "whittle",
+        type: "source",
+        typeLabel: "頂刊文獻摘要",
+        title: "Whittle, Vaara, & Maitlis (2023)",
+        subtitle: "The Role of Language in Organizational Sensemaking (JOM)",
+        actionLabel: "🔍 查看語言三層整合模型 ➔",
+        excerpt: "回顧 224 篇頂刊，建立語言與意會三層整合架構：認知層（隱喻/心智模型）、社會實踐層（修辭/敘事/雙重互動）、制度論述層（思維體系/意識形態）。多模態具身意會。",
+        tags: ["language", "discourse", "cognition", "multimodality", "power"],
+        details: `
+          <h2>The Role of Language in Organizational Sensemaking (Whittle et al., 2023)</h2>
+          <p><strong>作者</strong>：Andrea Whittle, Eero Vaara, Sally Maitlis<br><strong>出處</strong>：<em>Journal of Management</em>, 49(1), 1-34</p>
+
+          <h3>【維度 B：三層整合架構與遞歸循環】</h3>
+          <ul>
+            <li><strong>認知層</strong>：隱喻、心智框架引導個人注意與注意濾網。</li>
+            <li><strong>實踐層</strong>：日常修辭、情節敘事、面對面對話在人際間協商共識。</li>
+            <li><strong>論述層</strong>：制度思維體系決定何種說法具有合法性。</li>
+            <li><strong>雙向遞歸</strong>：微觀言說沉澱為宏觀制度；宏觀制度反向約束微觀認知的邊界。</li>
+          </ul>
+
+          <h3>【維度 D：對 AI 科技意會的啟示】</h3>
+          <p>生成式 AI 產出的純文本缺乏社會脈絡，亟需人類在認知層校準、實踐層修辭轉譯、論述層權力對齊，落實落地信任。</p>
+        `
+      },
+
+      // 2. Concepts (12 Cards)
+      {
+        id: "c-sensemaking",
+        sourceRef: "all",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Sensemaking (意義建構總綱)",
+        subtitle: "跨 7 篇頂刊理論總綱與演進地圖",
+        actionLabel: "🔍 展開詳細機制與理論地圖 ➔",
+        excerpt: "組織成員在面對歧義混亂時，透過線索括注、情緒感受、語言溝通、日常實踐與人造物互動，將情境轉譯為有秩序的理解，作為集體行動的跳板。",
+        tags: ["sensemaking", "organizing", "foundational"],
+        details: `
+          <h2>意義建構 (Sensemaking) 理論總綱</h2>
+          <p>由 Weick (2005) 奠基，Maitlis (2005) 擴展至社會協商，Rouleau (2005) 聚焦微觀實踐，Maitlis (2013) 納入情緒連貫，Maitlis (2014) 確立物質性，Yeow (2020) 應用於科技採納，Whittle (2023) 整合語言論述三層架構。</p>
+          <h3>核心機制</h3>
+          <p>意會不是被動「看見客觀事實」，而是在混亂中「說出一個合理解釋」。組織依靠融貫的在地敘事維持協同運作。</p>
+        `
+      },
+      {
+        id: "c-four-forms",
+        sourceRef: "maitlis05",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Four Forms of Sensemaking (四大意會型態)",
+        subtitle: "領導者賦意與利害關係人賦意 2x2 矩陣",
+        actionLabel: "🔍 展開四大類型與 AI 採納陷阱 ➔",
+        excerpt: "引導型（高高）、碎裂型（高利低領）、限制型（高領低利）、極小化型（低低）。推行 AI 應避免限制型強推或碎裂型自流，打造引導型生態。",
+        tags: ["sensegiving", "2x2-matrix", "orchestras"],
+        details: `
+          <h2>四大意義建構型態 (Maitlis, 2005)</h2>
+          <p>為企業 AI 採納提供了組織架構診斷：</p>
+          <ul>
+            <li><strong>引導型</strong>：高管給方向、一線熱烈探索 ➔ 最佳落地實踐。</li>
+            <li><strong>限制型</strong>：老闆強推換工具 ➔ 引發集體消極怠工與抗拒。</li>
+            <li><strong>碎裂型</strong>：各部門私下使用 Shadow AI ➔ 標準不一與資料外洩。</li>
+          </ul>
+        `
+      },
+      {
+        id: "c-micro-practices",
+        sourceRef: "rouleau",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Micro-Practices of Sensegiving (四大微觀實踐)",
+        subtitle: "轉譯、超編碼、規訓、辯護",
+        actionLabel: "🔍 展開四部曲與 AI 落地對照 ➔",
+        excerpt: "Rouleau (2005) 提煉的一線人員策略賦意四部曲。人將冷硬 AI 產出翻譯成客戶白話、切換受眾風格、制定操作 SOP 並為誤差合理化辯護。",
+        tags: ["micro-practices", "sensegiving", "middle-managers"],
+        details: `
+          <h2>四大微觀實踐動作 (Rouleau, 2005)</h2>
+          <p>人作為 AI 轉譯者的核心武器庫：</p>
+          <ol>
+            <li><strong>轉譯 (Translating)</strong>：將算法指標翻譯為商業效益。</li>
+            <li><strong>超編碼 (Overcoding)</strong>：依工程師、財務長不同身分切換語氣。</li>
+            <li><strong>規訓 (Disciplining)</strong>：建立 Prompt 手冊與審核常規。</li>
+            <li><strong>辯護 (Justifying)</strong>：動用客戶長期利益為 AI 的微小誤差辯護。</li>
+          </ol>
+        `
+      },
+      {
+        id: "c-articulation",
+        sourceRef: "all",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Articulation and Sensegiving (闡明與意義賦予)",
+        subtitle: "人作為 AI 科技的意義轉譯橋樑",
+        actionLabel: "🔍 展開轉譯機制與信任背書 ➔",
+        excerpt: "闡明是將內隱直覺外顯為語言；意義賦予是向受眾傳播特定詮釋。AI 科技無法自我證明，全賴人類工作者的微觀賦意建立信任。",
+        tags: ["articulation", "sensegiving", "trust-building"],
+        details: `
+          <h2>闡明與意義賦予 (Articulation & Sensegiving)</h2>
+          <p>AI 不具備組織情境意識與自我辯護能力。人類專家的微調與解說，實質上替 AI 進行了「信任背書（Trust Brokerage）」，促成外部利害關係人的採納。</p>
+        `
+      },
+      {
+        id: "c-sensebreaking",
+        sourceRef: "yeow",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Sensebreaking & Requisite Variety (意義解構與多樣性)",
+        subtitle: "科技採納中的持續矛盾線索與迷思打破",
+        actionLabel: "🔍 展開破意歷程與多樣性 ➔",
+        excerpt: "Sensebreaking 是漸進累積的心理重組歷程；單一廠商警告被視為恐嚇，跨來源持續矛盾線索才能打破過度簡化的技術神話。需具備必備多樣性。",
+        tags: ["sensebreaking", "requisite-variety", "is-procurement"],
+        details: `
+          <h2>意義解構與必備多樣性 (Yeow & Chua, 2020)</h2>
+          <p>組織推動 AI 必須抗拒過早簡化技術的誘惑。透過接觸多元甚至相互衝突的觀點（Requisite Variety），持續遭遇矛盾線索，才能認清 AI 邊界與算力成本。</p>
+        `
+      },
+      {
+        id: "c-sociomateriality",
+        sourceRef: "yeow",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Sociomateriality and Artefacts (實體性與物質人造物)",
+        subtitle: "原型與儀表板作為具身化線索 (Embodied Cues)",
+        actionLabel: "🔍 展開具身線索與原型力量 ➔",
+        excerpt: "意義建構根植於物質世界。抽象口頭宣傳無法消除黑盒子焦慮；可操作的 UI 儀表板、原型 Demo 與機房參觀，是建立體感信任的決定性錨點。",
+        tags: ["sociomateriality", "artefacts", "embodied-cues"],
+        details: `
+          <h2>物質性與具身化線索 (Sociomateriality & Artefacts)</h2>
+          <p>Yeow & Chua (2020) 與 Whittle et al. (2023) 共同強調：實體人造物賦予行動者視覺與互動感官體驗。互動式儀表板、來源追溯高亮，是穿透抽象演算法黑盒子的捷徑。</p>
+        `
+      },
+      {
+        id: "c-emotion",
+        sourceRef: "maitlis13",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Emotion in Sensemaking (情緒意會與連貫性)",
+        subtitle: "中度負向警訊、生成/整合型意會、冷熱認知平衡",
+        actionLabel: "🔍 展開情緒三階段與安全感 ➔",
+        excerpt: "情緒是意義建構的感知天線與燃料。中度負向情緒激發批判性糾錯；結論仰賴情緒連貫性（冷熱認知平衡）。需營造免除羞恥的心理安全感。",
+        tags: ["emotion", "emotional-coherence", "psychological-safety"],
+        details: `
+          <h2>組織意會中的情緒機制 (Maitlis et al., 2013)</h2>
+          <p>AI 模型就算給出 99% 信心指數，只要專家內心有強烈不安，決策依然無法落地。採納必須達成「情緒連貫性（Emotional Coherence）」——冷熱認知達成和解。</p>
+        `
+      },
+      {
+        id: "c-language-discourse",
+        sourceRef: "whittle",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Language and Discourse (語言與論述三層架構)",
+        subtitle: "認知層隱喻、實踐層修辭、論述層權力體系",
+        actionLabel: "🔍 展開語言三層架構與隱喻 ➔",
+        excerpt: "語言在意義建構中貫穿認知（心智框架）、實踐（修辭敘事）與論述（制度思維體系）三層次，形成雙向動態遞歸循環。避免 AI 擬人化隱喻陷阱。",
+        tags: ["language", "discourse", "cognition", "rhetoric"],
+        details: `
+          <h2>語言與論述多層次架構 (Whittle et al., 2023)</h2>
+          <p>揭示微觀言說如何累積為宏觀制度，宏觀意識形態如何反向預設微觀認知的邊界。避免使用「全知全能神仙」等虛誇隱喻。</p>
+        `
+      },
+      {
+        id: "c-plausibility",
+        sourceRef: "weick",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Plausibility over Accuracy (合理性勝於精確性)",
+        subtitle: "凝聚共識的好故事優於統計絕對真理",
+        actionLabel: "🔍 展開合理性哲學 ➔",
+        excerpt: "現實永遠處於資訊不全狀態。能促成前進、減少歧義的合理故事，遠比等待全面客觀精確更能維繫組織生存。",
+        tags: ["plausibility", "accuracy", "organizing"],
+        details: `
+          <h2>合理性勝於精確性 (Weick et al., 2005)</h2>
+          <p>AI 採納追求的是組織在地脈絡的合理敘事，而非演算法純粹的地面真值。如果一個故事能凝聚共識、保持行動，它就是有益的。</p>
+        `
+      },
+      {
+        id: "c-noticing",
+        sourceRef: "weick",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Noticing and Bracketing (察覺與括注)",
+        subtitle: "從經驗之流中切出線索並貼上標籤",
+        actionLabel: "🔍 展開線索括注機制 ➔",
+        excerpt: "意會的第一步：將模糊異常圈選出來並給予名稱。一線專家察覺 AI 輸出的微妙異常，是啟動人工複核的關鍵起點。",
+        tags: ["noticing", "bracketing", "cues"],
+        details: `
+          <h2>察覺與括注 (Noticing & Bracketing)</h2>
+          <p>若缺乏專業專家的敏銳察覺，AI 的細微幻覺就會被忽略，釀成重大組織決策災難。</p>
+        `
+      },
+      {
+        id: "c-retrospective",
+        sourceRef: "weick",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Retrospective Sensemaking (後驗回溯性)",
+        subtitle: "行動領先認知，回頭看才能賦予意義",
+        actionLabel: "🔍 展開回溯機制 ➔",
+        excerpt: "人不先行動，就無法得知意義。很多時候組織是在使用 AI 之後，回頭比對才發現這款技術真正的價值與邊界。",
+        tags: ["retrospective", "action-first"],
+        details: `
+          <h2>後驗回溯性 (Retrospective Sensemaking)</h2>
+          <p>Weick 指出：「如果不說出來，我怎麼知道自己在想什麼？」科技採納必須先有受控的試用行動，才能產生實質理解。</p>
+        `
+      },
+      {
+        id: "c-enactment",
+        sourceRef: "weick",
+        type: "concept",
+        typeLabel: "核心理論概念",
+        title: "Enactment Theory (行動賦意理論)",
+        subtitle: "環境是被行動創造（Enacted）出來的",
+        actionLabel: "🔍 展開行動賦意機制 ➔",
+        excerpt: "行動者並非被動適應環境，而是透過自身的行為反向雕塑環境。AI 產品的功能邊界是在人機交互操作中被實踐出來的。",
+        tags: ["enactment", "esr-model"],
+        details: `
+          <h2>行動賦意理論 (Enactment Theory)</h2>
+          <p>AI 的商業價值不是出廠設定好的，而是由組織成員在每天的日常協作中創造出來的。</p>
+        `
+      },
+
+      // 3. Gaps (3 Cards)
+      {
+        id: "gap-human-articulation",
+        sourceRef: "all",
+        type: "gap",
+        typeLabel: "碩論研究缺口",
+        title: "GAP: 人作為意義轉譯者 (Human Articulation in AI)",
+        subtitle: "透過情境補充、修辭轉譯與情緒連貫建立 AI 信任的機制",
+        actionLabel: "🔍 檢視論文題目與延伸 RQ ➔",
+        excerpt: "AI 產品無法自我辯護。組織對 AI 的信任本質上是由人類工作者的隱形賦意勞動人為支撐起來的。文獻長期忽視這層轉譯勞動。",
+        tags: ["ai-adoption", "trust-building", "thesis-idea"],
+        details: `
+          <h2>人作為意義轉譯者 (Human Articulation & Trust-Building in AI)</h2>
+          <p>AI 產品本身不具備組織情境意識與自我辯護能力。組織對 AI 的信任本質上是由人類工作者的隱性轉譯支撐起來的。</p>
+          <h3>碩士論文核心研究問題 (Research Questions)</h3>
+          <ul>
+            <li><strong>RQ 1</strong>：在專業知識密集型領域（醫療、法律、金融），一線專業人員具體調動哪些微觀實踐動作，將黑盒子 AI 的機率輸出轉化為利害關係人信任的決策？</li>
+            <li><strong>RQ 2</strong>：外部客戶對 AI 輔助決策的信任，究竟是建立在對算法的信心，還是建立在對「人機微調後的故事與情緒連貫」的信任上？</li>
+          </ul>
+        `
+      },
+      {
+        id: "gap-ai-indeterminacy",
+        sourceRef: "all",
+        type: "gap",
+        typeLabel: "碩論研究缺口",
+        title: "GAP: AI 科技採納的獨特性 (AI Indeterminacy vs Sensemaking)",
+        subtitle: "從傳統 IT 的功能依賴到 AI 時代的人機動態意義協商",
+        actionLabel: "🔍 檢視論文題目與延伸 RQ ➔",
+        excerpt: "傳統科技追求確定性與規則；AI 科技帶來機率變異與黑盒子。傳統 IT 採納模型失靈，亟需建立以動態意義協商為核心的新理論。",
+        tags: ["ai-adoption", "indeterminacy", "thesis-idea"],
+        details: `
+          <h2>AI 科技採納之獨特性</h2>
+          <p>傳統 MIS 模型的規格對齊與驗收清單無法應對生成式 AI 的非線性湧現。採納本質上是一場動態的人機意義協商。</p>
+          <h3>碩論延伸問題</h3>
+          <p>組織如何建立容許試錯的動態協商機制，以應對 AI 的機率不確定性？</p>
+        `
+      },
+      {
+        id: "gap-sociomaterial-embodiment",
+        sourceRef: "yeow",
+        type: "gap",
+        typeLabel: "碩論研究缺口",
+        title: "GAP: 物質具身性與 AI 信任 (Sociomaterial Embodiment)",
+        subtitle: "實體人造物（UI/原型/Demo）在化解黑盒子焦慮中的關鍵中介作用",
+        actionLabel: "🔍 檢視論文題目與延伸 RQ ➔",
+        excerpt: "探討操作性人造物如何作為具身化線索，打破非技術決策者對 AI 的認知真空，促成從懷疑到採納的認知躍遷。",
+        tags: ["sociomateriality", "artefacts", "thesis-idea"],
+        details: `
+          <h2>物質具身性與 AI 信任建立</h2>
+          <p>口頭宣傳無法跨越演算法黑盒子。實體人造物（原型、儀表板）提供可感知的具身化線索。</p>
+          <h3>碩論延伸問題</h3>
+          <p>不同互動設計（可解釋性高亮 vs. 參數滑桿）如何中介專業人員對 AI 產出的情緒連貫與採納決策？</p>
+        `
+      },
+
+      // 4. Research Designs (4 Cards)
+      {
+        id: "rd-weick-2005",
+        sourceRef: "weick",
+        type: "rd",
+        typeLabel: "研究推論模式",
+        title: "RD: 微觀質性切片推導宏觀理論 (Weick et al., 2005)",
+        subtitle: "拆解 900g 早產兒 2 小時微觀敘事如何躍遷至組織宏觀理論",
+        actionLabel: "🔍 拆解質性推論套路 ➔",
+        excerpt: "從 2 小時小兒科加護病房個案切片，提煉察覺、命名、溝通、行動四步機制，最後推演至全組織層次的 ESR 演化框架。",
+        tags: ["qualitative-leap", "vignette-analysis", "methodology"],
+        details: `
+          <h2>微觀質性切片躍遷推論套路 (Weick et al., 2005)</h2>
+          <p>展示如何用一個高張力的現場質性片段（Vignette），萃取通用微觀機制（察覺、括注、言說），並進一步躍遷至宏觀組織理論。</p>
+          <h3>對碩論質性寫作之啟示</h3>
+          <p>論文不用羅列幾百頁枯燥資料，精選一個極具代表性的人機互動糾錯場景，就能漂亮撐起整個理論機制！</p>
+        `
+      },
+      {
+        id: "rd-maitlis-2005",
+        sourceRef: "maitlis05",
+        type: "rd",
+        typeLabel: "研究推論模式",
+        title: "RD: 縱向多個案建構 2x2 理論矩陣 (Maitlis, 2005)",
+        subtitle: "拆解 27 個決策歷程如何抽象化出控制度與活絡度兩大維度",
+        actionLabel: "🔍 拆解質性推論套路 ➔",
+        excerpt: "追蹤 3 家交響樂團 2 年，記錄 27 個議題敘事，編碼領導者與利害關係人的言行，抽象化出兩大理論維度並建立 2x2 典範矩陣。",
+        tags: ["2x2-matrix", "comparative-cases", "methodology"],
+        details: `
+          <h2>縱向多個案 2x2 矩陣建構套路 (Maitlis, 2005)</h2>
+          <p>多個案質性分析典範：從交響樂團繁瑣的訪談與會議記錄中，萃取出兩大關鍵正交維度（領導者控制度 × 利害關係人活絡度），搭建結構分明的四分格類型學。</p>
+        `
+      },
+      {
+        id: "rd-rouleau-2005",
+        sourceRef: "rouleau",
+        type: "rd",
+        typeLabel: "研究推論模式",
+        title: "RD: 日常對話與常規之微觀實踐分析 (Rouleau, 2005)",
+        subtitle: "拆解 39 個行動單元如何提煉為四大策略微觀實踐",
+        actionLabel: "🔍 拆解質性推論套路 ➔",
+        excerpt: "深入民族誌，觀察中階主管 39 次關鍵互動，將日常言語（Talk）與行動常規（Routines）編碼為轉譯、超編碼、規訓、辯護。",
+        tags: ["micro-practices", "ethnography", "methodology"],
+        details: `
+          <h2>微觀實踐編碼套路 (Rouleau, 2005)</h2>
+          <p>展示如何跳脫死板訪談，從田野工作者日常交談與例行工作中，提煉出兼具微觀細節與宏觀策略意涵的四大實踐構念。</p>
+        `
+      },
+      {
+        id: "rd-yeow-2020",
+        sourceRef: "yeow",
+        type: "rd",
+        typeLabel: "研究推論模式",
+        title: "RD: 科技採納時間括注分析法 (Yeow & Chua, 2020)",
+        subtitle: "拆解 8 個月多方招標歷程如何分段捕捉認知漂移與漸進式解構",
+        actionLabel: "🔍 拆解質性推論套路 ➔",
+        excerpt: "採用 Langley (1999) 時間括注法，將招標劃分為 4 個離散互動回合，清晰捕捉客戶在三循環中的認知重組與漸進破意。",
+        tags: ["temporal-bracketing", "process-research", "methodology"],
+        details: `
+          <h2>科技採納歷程之時間括注分析法 (Yeow & Chua, 2020)</h2>
+          <p><strong>方法典範</strong>：採用 Langley (1999) 歷程研究之「時間括注策略（Temporal Bracketing）」，展示如何將長達 8 個月、涉及多方競標廠商的複雜 IT 採購歷程，拆解為離散的四個交互回合，精準捕捉「即時、回溯、決策」三循環的認知漂移。</p>
+
+          <h3>【資料庫特質與時間括注操作】</h3>
+          <ul>
+            <li><strong>Round 1: 初始詢問 (Initial query)</strong> ➔ 客戶發出第一版 RFP，接觸 6 家廠商。</li>
+            <li><strong>Round 2: 初步回覆 (Response to initial query)</strong> ➔ 審查提案，淘汰部分廠商並要求重提報價。</li>
+            <li><strong>Round 3: 需求微調 (Refined query)</strong> ➔ 遭遇價格遠超預期與核心廠商退出，原定「雲端省錢信念」開始動搖。</li>
+            <li><strong>Round 4: 最終決策 (Resolution)</strong> ➔ 透過新廠商審計地端架構，徹底打破雲端迷思，轉向優化地端代管。</li>
+          </ul>
+
+          <h3>【概念躍遷：發現 Sensebreaking 是漸進累積歷程】</h3>
+          <p>作者並未預設 Sensebreaking 是瞬間發生的；透過在每一個時間區間內比對「廠商的 Sensegiving 動作」與「客戶內在的 Sensedemanding 質性變化」，成功發現客戶是在 Round 3~4 才由「拒絕相信」轉變為「全面解構」，漂亮修正了經典文獻的理論漏洞！</p>
+
+          <h3>【對碩士論文研究設計的實戰借鏡】</h3>
+          <p>在研究「企業導入生成式 AI 歷程」時，可將田野切分為：<em>技術探索期 ➔ 內部 PoC 試用期 ➔ 幻覺與阻力爆發期 ➔ 人機協同調適期</em>，運用時間括注法逐段對比信任感與調適動作的演變。</p>
+        `
+      },
+
+      // 5. Synthesis (1 Card)
+      {
+        id: "syn-matrix",
+        sourceRef: "all",
+        type: "synthesis",
+        typeLabel: "跨篇綜述對話",
+        title: "七篇核心頂刊全景對話矩陣 (Literature Dialogue Matrix)",
+        subtitle: "碩士論文第二章文獻探討核心骨架",
+        actionLabel: "🔍 查閱完整七篇對話矩陣 ➔",
+        excerpt: "橫向貫穿哲學底座 (Weick)、社會協商 (Maitlis 05)、微觀實踐 (Rouleau)、情緒連貫 (Maitlis 13)、全景物質性 (Maitlis 14)、科技採納 (Yeow)、語言論述 (Whittle)。",
+        tags: ["literature-matrix", "thesis-framework", "synthesis"],
+        details: `
+          <h2>七篇核心頂刊全景橫向對話矩陣</h2>
+          <p>跨越 2005 至 2023 年，涵蓋微觀認知、社會協商、日常實踐、情緒心理、科技採納與語言論述六大維度：</p>
+          <table>
+            <thead>
+              <tr><th>文獻與年份</th><th>核心焦點</th><th>對 AI 採納之核心啟示</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Weick et al. (2005)</strong></td><td>哲學底座、合理性勝於精確性</td><td>AI 輸出是機率假定，組織決策依賴在地合理敘事。</td></tr>
+              <tr><td><strong>Maitlis (2005)</strong></td><td>社會協商、四大型態 2x2</td><td>避免限制型強推，打造高層引導、基層探索的生態。</td></tr>
+              <tr><td><strong>Rouleau (2005)</strong></td><td>微觀實踐、四大賦意動作</td><td>人是意義轉譯者，透過轉譯、超編碼、規訓、辯護建立信任。</td></tr>
+              <tr><td><strong>Maitlis et al. (2013)</strong></td><td>情緒三階段、情緒連貫性</td><td>中度焦慮是糾錯燃料；採納需達成冷熱認知平衡。</td></tr>
+              <tr><td><strong>Maitlis & Christianson (2014)</strong></td><td>二十年綜述、物質性與身分認同</td><td>警惕 AI 造成的專業身分威脅；重視實體人造物。</td></tr>
+              <tr><td><strong>Yeow & Chua (2020)</strong></td><td>科技採納、漸進破意、具身線索</td><td>破除 AI 萬能神話；互動原型是錨定體感信任的關鍵。</td></tr>
+              <tr><td><strong>Whittle et al. (2023)</strong></td><td>語言三層整合、多模態</td><td>AI 輸出需要認知驗證、修辭轉譯與制度權力對齊。</td></tr>
+            </tbody>
+          </table>
+        `
+      }
+    ];
+
+    let currentFilterType = 'all';
+    let currentSourceFilter = 'all';
+
+    function renderCards(data) {
+      const grid = document.getElementById('cardsGrid');
+      grid.innerHTML = '';
+
+      if (data.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">查無符合條件的卡片</p>';
+        return;
+      }
+
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openModal(item);
+
+        const typeClass = `type-${item.type}`;
+        const tagsHtml = item.tags.map(t => `<span class="tag">#${t}</span>`).join('');
+
+        card.innerHTML = `
+          <span class="card-type ${typeClass}">${item.typeLabel}</span>
+          <h2 class="card-title">${item.title}</h2>
+          <div class="card-subtitle">${item.subtitle}</div>
+          <div class="card-summary-box">
+            <span class="summary-badge">核心要義</span>
+            <p class="card-excerpt">${item.excerpt}</p>
+          </div>
+          <div class="card-meta">
+            <div class="tags">${tagsHtml}</div>
+            <div class="action-label">${item.actionLabel || '🔍 查看深度解析 ➔'}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterCards(type) {
+      currentFilterType = type;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      applyFilters();
+    }
+
+    function filterSource(src) {
+      currentSourceFilter = src;
+      document.querySelectorAll('.source-chip').forEach(chip => chip.classList.remove('active'));
+      event.target.classList.add('active');
+      applyFilters();
+    }
+
+    function searchCards() {
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('searchBox').value.toLowerCase().trim();
+
+      const filtered = wikiData.filter(item => {
+        const matchType = (currentFilterType === 'all') || (item.type === currentFilterType);
+        const matchSource = (currentSourceFilter === 'all') || (item.sourceRef === currentSourceFilter) || (item.sourceRef === 'all');
+        const matchSearch = !q || 
+          item.title.toLowerCase().includes(q) || 
+          item.subtitle.toLowerCase().includes(q) || 
+          item.excerpt.toLowerCase().includes(q) || 
+          item.tags.some(t => t.toLowerCase().includes(q));
+
+        return matchType && matchSource && matchSearch;
+      });
+
+      renderCards(filtered);
+    }
+
+    function openModal(item) {
+      const overlay = document.getElementById('modalOverlay');
+      const body = document.getElementById('modalBody');
+      body.innerHTML = item.details || `<h2>${item.title}</h2><p>${item.excerpt}</p>`;
+      overlay.classList.add('active');
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === 'modalOverlay' || e.target.className === 'modal-close') {
+        document.getElementById('modalOverlay').classList.remove('active');
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Initial render
+    renderCards(wikiData);
+  </script>
+</body>
+</html>

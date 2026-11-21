@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Graph、Loop 與檢查紀錄</title><style>
+body{margin:0;background:#f5f4f0;color:#202020;font:1.05rem/1.7 system-ui,sans-serif}main{max-width:65rem;margin:auto;padding:clamp(1rem,4vw,3rem)}a{color:#94351e}table{border-collapse:collapse;display:block;overflow:auto}td,th{padding:.6rem;border:1px solid #b9b4a8}pre{overflow:auto;background:#ebe7dc;padding:1rem}.flow{display:grid;gap:.9rem;padding-left:1.4rem}.flow li{padding:.7rem 1rem;border-left:5px solid #c29b38;background:white}.flow small{color:#4d412a}
+</style></head><body><main><nav><a href="dashboard.html">Wiki 儀表板</a> · <a href="slides/2026-11-21-graph-draft/presentation.html">教學簡報</a></nav><h1>AI 時代的組織意義建構流程與反思</h1>
+<p>先完成文獻攝入的提案、研究者確認、寫入及連結檢查，再用 Wiki 製作教學簡報。本輪 Wiki 包含 7 篇來源摘要、12 張概念卡、3 個研究缺口、4 套研究設計與 1 張文獻對話矩陣。</p>
+<h2>交件版 Graph</h2>
+<p>由上往下讀。每個階段通過檢查才進入下一階段。虛線是退回修正的路徑。</p>
+<ol class="flow">
+<li><strong>查 Wiki 與擬定大綱</strong><br>核對 Wiki 出處，研究者確認大綱。<br><small>Loop 1　來源不足就回查 Wiki，主線需調整就回改大綱。</small></li>
+<li><strong>逐頁腳本</strong><br>檢查來源、觀眾用語及每頁資訊量。<br><small>Loop 2　有問題就回寫腳本，再審閱。</small></li>
+<li><strong>HTML 生成與測試</strong><br>測試翻頁、目錄、筆記與版面。<br><small>Loop 3　修正 HTML 後再用瀏覽器測試。</small></li>
+<li><strong>交件與紀錄</strong><br>驗證 Wiki、簡報及引用連結。修正後重查，再保存成果與反思。</li>
+</ol>
+
+<ul>
+<li><strong>Loop 1 大綱修訂</strong>　候選案例缺少 Wiki 來源時，回到 Wiki 查找材料。主線需要調整時，改大綱再請研究者確認。</li>
+<li><strong>Loop 2 教學內容修訂</strong>　逐頁確認投影文字能直接給觀眾看。框內概念不足或仍有備課用語時，回到腳本修正。若要換核心案例或學習目標，回階段一重新確認。</li>
+<li><strong>Loop 3 HTML 複驗</strong>　修正目錄、筆記置中、滑鼠懸停與版面後，再用瀏覽器測一次。若測試發現內容或出處有誤，回階段二改腳本。</li>
+<li><strong>交件連結複查</strong>　逐一開啟正式簡報、Wiki 儀表板與引用。指向舊版或失效時，修正後從同一入口重查。</li>
+</ul>
+<h2>實跑與修正</h2>
+<table>
+<thead>
+<tr>
+<th>檢查點</th>
+<th>發現與修正</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Wiki 健康檢查</td>
+<td>執行 <code>python3 tools/wiki_lint.py</code></td>
+<td>27 頁、0 個失效 wikilink、0 個孤島</td>
+</tr>
+<tr>
+<td>大綱來源</td>
+<td>兩個候選案例缺 Wiki 來源頁，改用 Weick 的護理敘事與 Yeow、Chua 的律所採購案例</td>
+<td>研究者確認以地端 AI 情境串起案例與練習</td>
+</tr>
+<tr>
+<td>觀眾呈現</td>
+<td>依回饋反覆修正文字量、框內說明、首頁版型、筆記位置與備課用語</td>
+<td>10 頁。概念解釋放進卡片，頁尾有小結，筆記按需開啟</td>
+</tr>
+<tr>
+<td>瀏覽器</td>
+<td>以 1280 px、390 px 檢查版面與操作</td>
+<td>驗證目錄、翻頁、筆記與水平溢出</td>
+</tr>
+<tr>
+<td>交件入口</td>
+<td>發現原儀表板仍開啟早期簡報，改為自動顯示 Wiki 卡片。交件版簡報、Wiki 儀表板與總覽互連</td>
+<td>歷史版本留在工作資料夾，交件入口只提供當前成果</td>
+</tr>
+</tbody></table>
+<h2>反思</h2>
+<p>本輪最常修改的是逐頁腳本轉成投影片後的觀眾呈現。初次製作時，文字太依賴筆記。補進正文後又發現標籤像是講者備課用語，因而再修訂。下一輪在腳本審閱時就檢查觀眾實際會看到的文案，並先確認代表頁的樣式，再鋪開整套。</p>
+<p>本輪已把案例來源檢查移到大綱確認前，依據不足時直接退回 Wiki 查詢。交件流程再補上從入口向外追蹤連結，避免資料夾裡同時存在歷史版時，使用者由正式入口被帶去錯的版本。</p>
+<p><a href="dashboard.html">Wiki 知識庫</a> · <a href="slides/2026-11-21-graph-draft/presentation.html">教學簡報</a></p>
+<p>交件版後續複驗補入 30 段 Wiki 概念，並調整分組目錄、置中筆記及翻頁懸停。Chrome 驗證 1440 × 900、1280 × 720 與 390 × 844 三種尺寸。</p>
+</main></body></html>

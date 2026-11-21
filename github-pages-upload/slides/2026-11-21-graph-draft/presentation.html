@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 時代下的科技意會</title>
+<style>
+    :root {
+      --bg: #F6F5F2;
+      --dark: #1E1E1E;
+      --white: #FFFFFF;
+      --wood: #C29B38;
+      --red: #D84315;
+      --blue: #2B4C7E;
+      --border: #1E1E1E;
+      --muted: #5A5A5A;
+      --card-bg: #FFFFFF;
+      --border-w: 2.5px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+      --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.05), 3px 3px 0 var(--border);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--dark);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Top Utility Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      border-bottom: var(--border-w) solid var(--border);
+      background-color: var(--bg);
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bauhaus-symbol {
+      width: 14px;
+      height: 14px;
+      background-color: var(--red);
+      display: inline-block;
+      transform: rotate(45deg);
+      border-radius: 3px;
+    }
+
+    .brand-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .brand-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-left: 2px solid #CCC;
+      padding-left: 10px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: var(--white);
+      border: 2px solid var(--border);
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+      box-shadow: 2px 2px 0 var(--border);
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      background: var(--dark);
+      color: var(--white);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--border);
+    }
+
+    .btn-action.active {
+      background: var(--wood);
+      color: var(--white);
+      border-color: var(--border);
+    }
+
+    /* Slide Header */
+    .slide-header {
+      margin-bottom: 22px;
+      border-bottom: 2px solid #D8D6CE;
+      padding-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .slide-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .slide-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 3px 12px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+    }
+
+    .slide-tag.tag-accent {
+      background-color: var(--red);
+    }
+
+    .slide-tag.tag-wood {
+      background-color: var(--wood);
+    }
+
+    .slide-tag.tag-blue {
+      background-color: var(--blue);
+    }
+
+    .slide-number-display {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--muted);
+      background: #EBE8E0;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    .slide-title {
+      font-size: 2.05rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      color: var(--dark);
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Slide Body Grid & Cards with Soft Rounded Corners */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 16px;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-4col {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .bauhaus-card {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .hover-ready .bauhaus-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.07), 4px 4px 0 var(--border);
+    }
+
+    .card-accent-border {
+      border-top: 6px solid var(--red);
+    }
+
+    .card-wood-border {
+      border-top: 6px solid var(--wood);
+    }
+
+    .card-blue-border {
+      border-top: 6px solid var(--blue);
+    }
+
+    .card-dark-border {
+      border-top: 6px solid var(--dark);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      font-size: 0.95rem;
+      line-height: 1.62;
+      color: #2D2D2D;
+    }
+
+    .card-body p {
+      margin-bottom: 10px;
+    }
+
+    .card-body ul, .card-body ol {
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card-body li {
+      margin-bottom: 6px;
+    }
+
+    /* Callout & Quotes (Rounded) */
+    .callout {
+      background-color: #FAF8F2;
+      border-left: 5px solid var(--wood);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      margin: 10px 0;
+      border-top: 1px solid #EFECE4;
+      border-right: 1px solid #EFECE4;
+      border-bottom: 1px solid #EFECE4;
+    }
+
+    .callout-red {
+      background-color: #FDF4F2;
+      border-left: 5px solid var(--red);
+      border-color: #FBE6E3;
+    }
+
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: block;
+      color: var(--dark);
+    }
+
+    .bottom-bar {
+      border-top: var(--border-w) solid var(--border);
+      padding: 12px 24px;
+      background: var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .slide-indicator {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .current-step {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .progress-track {
+      width: 180px;
+      height: 8px;
+      background: #DDD9D0;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--red);
+      width: 10%;
+      transition: width 0.25s ease;
+      border-radius: 4px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 2.5px 2.5px 0 var(--border);
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--dark);
+      color: var(--white);
+      transform: translate(-1px, -1px);
+      box-shadow: 3.5px 3.5px 0 var(--border);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Presenter Notes Overlay / Drawer (Rounded) */
+
+[hidden]{display:none!important}
+body{height:100dvh;user-select:auto}
+button{font:inherit}
+a{color:#953617}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.top-bar{gap:1rem}.top-actions{flex-wrap:wrap;gap:.55rem}
+.brand-title{line-height:1.3}.brand-meta{white-space:nowrap}
+.bauhaus-symbol{flex:none}
+.deck{flex:1;min-height:0;overflow-y:auto}
+.slide{max-width:1380px;margin:auto;padding:clamp(1.1rem,3.8vw,3.4rem)}
+.slide-header{gap:1rem;align-items:flex-start}
+.slide-title{font-size:clamp(1.45rem,2.5vw,2.15rem);text-wrap:balance}
+.slide-number-display{flex:none}
+.slide-subtitle{margin-top:.5rem;line-height:1.5}
+.slide-body{gap:1.15rem}
+.grid-2col,.grid-3col,.grid-4col{list-style:none;grid-auto-rows:1fr}
+.grid-2col{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3col{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4col{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bauhaus-card{min-width:0}
+.card-title{line-height:1.35;margin-bottom:.5rem}
+.card-body{font-size:clamp(.95rem,1.35vw,1.14rem);margin:0}
+.step-number{width:2rem;height:2rem;display:grid;place-items:center;margin-bottom:.75rem;border:1.5px solid var(--border);border-radius:50%;font:700 .8rem var(--font-mono);background:#f1ebe0}
+.callout{line-height:1.5;margin:0}
+
+.slide-header{margin-bottom:1rem}
+.slide-title{text-wrap:pretty}
+.slide-body{gap:.9rem}
+.card-title{font-size:clamp(1.02rem,1.5vw,1.25rem)}
+.card-body{font-size:clamp(.96rem,1.35vw,1.1rem);line-height:1.62}
+.step-number{float:left;width:auto;height:auto;border:0;background:none;color:var(--muted);margin:.15em .55em 0 0}
+@media(max-width:650px){#slide-1 .grid-4col{grid-template-columns:1fr}}
+
+.bottom-bar{gap:.9rem;flex-wrap:wrap}.slide-indicator{min-width:0;flex:1}
+.progress-track{width:min(22vw,250px)}.nav-buttons{margin-left:auto}.current-step{white-space:nowrap}
+dialog{position:fixed;inset:0;margin:auto;width:min(94vw,44rem);max-height:85dvh;padding:1.2rem 1.5rem;border:2.5px solid var(--border);border-radius:var(--radius-lg);background:var(--bg);box-shadow:var(--shadow-soft);color:var(--dark)}
+dialog::backdrop{background:#17171799}
+dialog ol{list-style:none;display:grid;gap:.6rem;margin:1rem 0}
+dialog ol button{width:100%;text-align:left}
+#message{color:#953617}
+@media(max-width:950px){.brand-meta{display:none}.grid-4col{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.top-bar{padding:.65rem 1rem;gap:.5rem}.slide{padding:1rem}.slide-header{gap:.5rem}.slide-number-display{display:none}.grid-2col,.grid-3col,.grid-4col{grid-template-columns:1fr;grid-auto-rows:auto;gap:.85rem}.bauhaus-card{padding:1rem}.bottom-bar{padding:.65rem 1rem;gap:.4rem}.btn-nav{padding:.35rem .7rem}.progress-track{display:none}}
+@media print{body,.deck{display:block;height:auto;overflow:visible}.top-bar,.bottom-bar,dialog,#reader-notes{display:none!important}.slide[hidden]{display:block!important}.slide{break-after:page}}
+
+.slide-summary{display:flex;gap:.7rem;align-items:baseline;padding:.65rem .9rem;background:#eee8d7;border-left:4px solid var(--wood);border-radius:4px;line-height:1.55}
+.slide-summary strong{white-space:nowrap;color:#513b15}
+#reader-notes{margin:auto;width:min(92vw,46rem);max-height:80dvh}
+#reader-notes h2{margin-bottom:.45rem}
+#reader-notes p{margin:.7rem 0;line-height:1.65}
+#reader-notes form{margin-top:.85rem}
+@media(max-width:420px){.slide-summary{display:block}.slide-summary strong{display:block;margin-bottom:.25rem}}
+
+.card-highlight{margin:0;font-size:inherit;line-height:1.55}
+#slide-1 .grid-2col{gap:1rem}
+#slide-1 .bauhaus-card{padding:1rem 1.25rem}
+#slide-1 .card-highlight{padding:.65rem .9rem}
+@media (hover:none),(prefers-reduced-motion:reduce){
+  .bauhaus-card{transition:none}
+  .hover-ready .bauhaus-card:hover{transform:none;box-shadow:var(--shadow-soft)}
+}
+
+.slide-title:focus{outline:none}
+.wiki-concept{border-top:1px solid #dedbd3;padding-top:.65rem}
+.wiki-concept strong{color:#2b4c7e}
+#toc{width:min(94vw,62rem)}
+.toc-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem;margin:1rem 0}
+.toc-group{border:1px solid #c7c4bd;border-top:4px solid var(--wood);border-radius:.4rem;padding:.75rem;background:var(--white)}
+.toc-group h3{font-size:1rem}
+.toc-group button{display:flex;gap:.5rem;background:var(--bg);box-shadow:none;line-height:1.35}
+.toc-group button[aria-current="step"]{background:#eee3c4;border-color:#876400}
+.toc-number{font:700 .85rem var(--font-mono);color:#6e4d12}
+@media(max-width:720px){.toc-groups{grid-template-columns:1fr}}
+@media(min-width:1050px) and (min-height:760px){
+  .slide{padding-block:clamp(2rem,4.8vh,4rem)}
+  .card-body{font-size:clamp(1.08rem,1.4vw,1.28rem)}
+  .bauhaus-card{padding:clamp(1.25rem,2vw,1.9rem)}
+}
+</style>
+</head>
+<body>
+<header class="top-bar">
+<div class="brand"><span class="bauhaus-symbol" aria-hidden="true"></span><strong class="brand-title">AI 時代下的科技意會</strong><span class="brand-meta">LLM Wiki 教學簡報</span></div>
+<div class="top-actions"><button class="btn-action" id="menu" type="button" title="快捷鍵 M">目錄</button><button class="btn-action" id="notes" type="button" title="快捷鍵 N" aria-haspopup="dialog" aria-controls="reader-notes">讀者筆記</button><button class="btn-action" id="fullscreen" type="button" title="快捷鍵 F">全螢幕</button><a class="btn-action" href="../../dashboard.html">Wiki 儀表板</a></div>
+</header>
+<main class="deck">
+<section class="slide" id="slide-1" aria-labelledby="title-1">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag tag-accent">假想情境</span></div>
+<h1 class="slide-title" id="title-1" tabindex="-1">同一個 AI 提案，四種理解</h1><p class="slide-subtitle">評估在公司內部部署 AI，協助處理訂單異常。</p></div>
+<span class="slide-number-display" aria-hidden="true">01 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-2col"><li class="bauhaus-card card-accent-border"><h2 class="card-title">懂 LLM，還不熟地端</h2><div class="card-body"><p>「我懂大型語言模型，但要在公司自己的設備上跑，跟用線上服務有什麼差別？」</p><p class="wiki-concept"><strong>認知框架</strong>　Whittle 等人（2023）指出，人會用既有框架理解新事物。熟悉模型的人容易先用技術框架解讀提案。</p><div class="callout card-highlight"><strong>技術與部署</strong>　LLM 是大型語言模型。地端部署描述模型在哪裡執行，例如公司的伺服器。這位同事先關心設備、整合與維護。</div></div></li>
+<li class="bauhaus-card card-blue-border"><h2 class="card-title">先看能解決什麼</h2><div class="card-body"><p>「我不知道地端 AI 怎麼運作，但它或許能幫我們找出訂單異常。」</p><p class="wiki-concept"><strong>線索選擇</strong>　Weick 等人（2005）指出，意義建構從察覺線索開始。不同工作經驗會讓人優先注意不同問題。</p><div class="callout card-highlight"><strong>預期效益</strong>　這位同事從訂單異常這個痛點出發，先問 AI 能幫忙找出什麼，再評估能省下哪些人工查找時間。</div></div></li>
+<li class="bauhaus-card card-wood-border"><h2 class="card-title">沒想到現場要改</h2><div class="card-body"><p>「我以為把模型接進訂單系統就好了，沒想到倉庫還得挪出一區放待複核的貨，連作業動線都要改。」</p><p class="wiki-concept"><strong>物質性</strong>　科技採納也涉及人和物件如何共同工作。空間、設備與作業動線都會影響新流程如何落地。</p><div class="callout card-highlight"><strong>現場作業</strong>　系統接好後，異常提示可能讓貨品暫停出貨。若要隔開待複核的貨，倉庫就得騰出空間、改變搬運路線。</div></div></li>
+<li class="bauhaus-card card-dark-border"><h2 class="card-title">怕被糾錯，被動配合</h2><div class="card-body"><p>「導入已經夠麻煩了，以後我的工作還要被 AI 抓錯。我本來不想用，是主管要求我才配合。」</p><p class="wiki-concept"><strong>情緒與壓力</strong>　Maitlis 等人（2013）指出，情緒會影響我們注意什麼、如何理解情況。擔心被追究責任也會影響對導入案的解讀。</p><div class="callout card-highlight"><strong>工作責任</strong>　這位同事把 AI 提示理解為對自己工作的監督。按要求配合試辦，仍可能對導入成本和責任歸屬有疑慮。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>面對同一個導入提案，四個人各自注意到不同的事，也會帶著不同的問題進會議。</span></p>
+<template class="slide-notes"><p>大家聽到的是同一個提案，有人想到模型和部署，有人想到待解決的問題，也有人後來才看到現場作業要改，或一開始就擔心自己的工作會被檢查。這些理解會影響大家覺得該先問什麼、接下來該做什麼。地端部署在這裡指把模型放在組織自己的運算環境執行。</p><p>Wiki｜<a href="../../wiki/concepts/Sensemaking.html">Sensemaking</a> · <a href="../../wiki/gaps/GAP-AI-Adoption-Indeterminacy-vs-Human-Sensemaking.html">AI 採納缺口</a> · <a href="../../wiki/sources/Whittle-2023.html">Whittle et al. 2023</a> · <a href="../../wiki/sources/Maitlis-2013.html">Maitlis et al. 2013</a> · <a href="../../wiki/concepts/Sociomateriality-and-Artefacts.html">物質性</a></p></template>
+</div></section>
+<section class="slide" id="slide-2" aria-labelledby="title-2">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag ">基本概念</span></div>
+<h1 class="slide-title" id="title-2" tabindex="-1">什麼是意義建構？</h1><p class="slide-subtitle">情況不明朗時，人會從線索形成暫時的解釋，再決定怎麼做。</p></div>
+<span class="slide-number-display" aria-hidden="true">02 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-3col"><li class="bauhaus-card card-accent-border"><span class="step-number" aria-hidden="true">01</span><h2 class="card-title">察覺線索</h2><div class="card-body"><p>在一堆資訊中，挑出與眼前問題相關的細節。</p><p class="wiki-concept"><strong>察覺與括注</strong>　人會從持續發生的事件中圈出值得注意的片段。專業經驗會影響哪些訊號被視為異常。</p><div class="callout card-highlight">工程同事注意到系統能否串接，倉庫同事則留意現場有沒有空間。</div></div></li>
+<li class="bauhaus-card card-blue-border"><span class="step-number" aria-hidden="true">02</span><h2 class="card-title">形成解釋</h2><div class="card-body"><p>把挑出的線索連起來，提出目前說得通的解釋。</p><p class="wiki-concept"><strong>合理性與回溯</strong>　人會回頭串接線索，形成目前說得通的解釋。這個解釋可以引導下一步，並隨新證據修正。</p><div class="callout card-highlight">聽到其他同事的觀察後，團隊可能重新理解問題。</div></div></li>
+<li class="bauhaus-card card-wood-border"><span class="step-number" aria-hidden="true">03</span><h2 class="card-title">採取行動</h2><div class="card-body"><p>根據目前的理解試做一步，例如用一筆歷史訂單走完流程。</p><p class="wiki-concept"><strong>行動賦意</strong>　行動會改變接下來能觀察到的情境。試做所產生的結果，會成為下一輪意義建構的線索。</p><div class="callout card-highlight">試做時發現的新線索，也可能改變原來的解釋。</div></div></li>
+</ul>
+<p class="slide-summary"><strong>小結</strong><span>意義建構是把零散線索連成暫時的解釋，再用行動檢驗或修正。</span></p>
+<template class="slide-notes"><p>事情不如預期時，人會挑出值得注意的細節，試著說清楚發生了什麼，並據此決定怎麼做。這個形成解釋並付諸行動的過程，就叫意義建構，也稱為意會。</p><p>Wiki｜<a href="../../wiki/concepts/Sensemaking.html">Sensemaking</a> · <a href="../../wiki/sources/Weick-2005.html">Weick et al. 2005，核心主張</a> · <a href="../../wiki/concepts/Retrospective-Sensemaking.html">回溯式意義建構</a> · <a href="../../wiki/concepts/Enactment-Theory.html">行動賦意</a> · <a href="../../wiki/concepts/Plausibility-over-Accuracy.html">合理性</a></p></template>
+</div></section>
+<section class="slide" id="slide-3" aria-labelledby="title-3">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag tag-blue">護理案例</span></div>
+<h1 class="slide-title" id="title-3" tabindex="-1">怎麼讓別人看見同一組線索？</h1></div>
+<span class="slide-number-display" aria-hidden="true">03 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-3col"><li class="bauhaus-card card-accent-border"><span class="step-number" aria-hidden="true">01</span><h2 class="card-title">護士察覺變化</h2><div class="card-body"><p><strong>察覺線索</strong>　護士把早產兒的膚色、精神與腹部變化放在一起看。</p><p class="wiki-concept"><strong>專業經驗</strong>　Weick 等人（2005）用護理敘事說明，既有經驗會影響人如何從日常變化中辨認異常。</p><div class="callout card-highlight">分開看都很細微，合起來讓她覺得值得關注。</div></div></li>
+<li class="bauhaus-card card-blue-border"><span class="step-number" aria-hidden="true">02</span><h2 class="card-title">反映後未獲重視</h2><div class="card-body"><p><strong>理解有落差</strong>　她反映狀況後，疑慮一開始未獲重視，於是請資深同事協助。</p><p class="wiki-concept"><strong>社會過程</strong>　意義要能影響組織行動，需要透過對話傳到其他人。不同成員掌握的線索與決策權可能不同。</p><div class="callout card-highlight">注意到線索的人和決定怎麼處理的人可能不同。</div></div></li>
+<li class="bauhaus-card card-wood-border"><span class="step-number" aria-hidden="true">03</span><h2 class="card-title">資深同事連結舊病例</h2><div class="card-body"><p><strong>說出線索的意義</strong>　資深同事用團隊熟悉的舊病例作類比，讓主治醫師理解這一組變化為什麼值得留意。</p><p class="wiki-concept"><strong>闡明</strong>　把直覺上的疑慮轉成別人能理解的說法，能讓原本難以描述的經驗成為團隊可討論的線索。</p><div class="callout card-highlight">熟悉的類比讓專業判斷能在團隊裡被討論。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>察覺異常只是第一步。借用團隊熟悉的案例，能讓別人理解這組線索為什麼重要。</span></p>
+<template class="slide-notes"><p>護士注意到多項細微變化，認為合在一起值得留意。資深同事借用團隊熟悉的病例來描述狀況，讓主治醫師理解為什麼這組線索需要關注。請留意兩個動作，一個是察覺，另一個是把自己看到的情況說給別人懂。</p><p>Wiki｜<a href="../../wiki/sources/Weick-2005.html">Weick et al. 2005，維度 C 的護理敘事</a></p></template>
+</div></section>
+<section class="slide" id="slide-4" aria-labelledby="title-4">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag ">組織協商</span></div>
+<h1 class="slide-title" id="title-4" tabindex="-1">個人的理解怎麼進入團隊？</h1><p class="slide-subtitle">誰能提出解釋，會影響團隊怎麼理解情況。</p></div>
+<span class="slide-number-display" aria-hidden="true">04 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-2col"><li class="bauhaus-card card-accent-border"><h2 class="card-title">主管</h2><div class="card-body"><p><strong>提出解釋</strong>　主管可以用自己的理解界定問題。</p><p class="wiki-concept"><strong>領導者賦意</strong>　Maitlis（2005）以領導者與其他利害關係人參與的程度，區分引導型、碎裂型、限制型與極小化型意義建構。</p><div class="callout card-highlight">把 AI 導入說成提升訂單檢查效率，會讓會議先聚焦在查找速度。</div></div></li>
+<li class="bauhaus-card card-blue-border"><h2 class="card-title">其他成員</h2><div class="card-body"><p><strong>補進現場線索</strong>　成員也能用親身經驗提出其他解釋。</p><p class="wiki-concept"><strong>利害關係人賦意</strong>　引導型中，領導者和其他成員都積極提出解釋。若其他成員較少參與，組織可能形成由領導者主導的限制型解釋。</p><div class="callout card-highlight">倉庫同事提醒異常貨品需要暫放，讓討論延伸到空間與動線。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>誰能在會議裡提出線索，會影響團隊看見哪些問題。</span></p>
+<template class="slide-notes"><p>Maitlis 比較了領導者與其他利害關係人參與程度不同時，組織怎麼形成解釋。初學者可以先問兩件事，誰在主動說明情況，其他人又有沒有機會提出手上的線索？</p><p>Wiki｜<a href="../../wiki/sources/Maitlis-2005.html">Maitlis 2005，維度 B 的四種型態</a> · <a href="../../wiki/concepts/Four-Forms-of-Sensemaking.html">四種意義建構型態</a></p></template>
+</div></section>
+<section class="slide" id="slide-5" aria-labelledby="title-5">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag tag-blue">意義賦予</span></div>
+<h1 class="slide-title" id="title-5" tabindex="-1">怎麼把變革說給別人懂？</h1><p class="slide-subtitle">Rouleau 觀察到，服裝公司的中階主管會用受眾熟悉的說法介紹變革。</p></div>
+<span class="slide-number-display" aria-hidden="true">05 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-2col"><li class="bauhaus-card card-accent-border"><span class="step-number" aria-hidden="true">01</span><h2 class="card-title">公司要推新服裝系列</h2><div class="card-body"><p><strong>策略方向</strong>　公司提出要推新系列，但「推新系列」只說明組織想做什麼。</p><p class="wiki-concept"><strong>策略的日常實踐</strong>　Rouleau（2005）觀察到，中階主管會在日常對話中解讀與傳達策略，這些互動本身就是變革的一部分。</p><div class="callout card-highlight">顧客要理解這個變化，還需要知道新系列的風格和使用情境。</div></div></li>
+<li class="bauhaus-card card-blue-border"><span class="step-number" aria-hidden="true">02</span><h2 class="card-title">用顧客熟悉的風格來介紹</h2><div class="card-body"><p><strong>日常轉譯</strong>　中階主管借用顧客熟悉的風格或隱喻介紹新品。</p><p class="wiki-concept"><strong>轉譯與意義賦予</strong>　轉譯借助對方熟悉的詞語與經驗。Whittle 等人（2023）也指出，語言可以透過隱喻、敘事與互動塑造理解。</p><div class="callout card-highlight">這是意義賦予的一種方式，透過對方聽得懂的語言影響他怎麼理解變革。</div></div></li>
+</ul>
+<p class="slide-summary"><strong>小結</strong><span>意義賦予可以從一件日常小事開始，例如用聽眾熟悉的說法介紹一項變革。</span></p>
+<template class="slide-notes"><p>Rouleau 在服裝公司觀察到，中階主管會用對方熟悉的隱喻和說法介紹新系列。當人主動影響別人如何理解一項變革，就是在做意義賦予。這一頁聚焦其中一種做法，用受眾熟悉的語言轉譯策略。</p><p>Wiki｜<a href="../../wiki/sources/Rouleau-2005.html">Rouleau 2005，維度 B 的轉譯策略方向</a> · <a href="../../wiki/sources/Whittle-2023.html">Whittle et al. 2023</a></p></template>
+</div></section>
+<section class="slide" id="slide-6" aria-labelledby="title-6">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag tag-blue">律所科技採購</span></div>
+<h1 class="slide-title" id="title-6" tabindex="-1">律所怎麼重新理解採購需求？</h1></div>
+<span class="slide-number-display" aria-hidden="true">06 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-3col"><li class="bauhaus-card card-accent-border"><span class="step-number" aria-hidden="true">01</span><h2 class="card-title">原來的想法</h2><div class="card-body"><p><strong>初始假設</strong>　律所起初認為上雲能降低成本，因此把上雲當成採購方向。</p><p class="wiki-concept"><strong>多方意義建構</strong>　Yeow 與 Chua（2020）把採購看作多方逐步釐清問題的過程。買方與廠商各自帶著知識和初步解釋進入討論。</p><div class="callout card-highlight">最初的需求帶有對問題原因的假設。</div></div></li>
+<li class="bauhaus-card card-blue-border"><span class="step-number" aria-hidden="true">02</span><h2 class="card-title">多輪招標與討論</h2><div class="card-body"><p><strong>檢視假設</strong>　多輪招標與討論讓不同參與者能檢視既有維護服務，也讓律所有機會重新判斷原先設定的方向。</p><p class="wiki-concept"><strong>回溯與協商</strong>　收到新提案後，各方會回看先前的條件和回應，再調整下一輪討論的問題。</p><div class="callout card-highlight">把想買的技術和想解決的問題分開檢視。</div></div></li>
+<li class="bauhaus-card card-wood-border"><span class="step-number" aria-hidden="true">03</span><h2 class="card-title">重新界定問題</h2><div class="card-body"><p><strong>重新界定</strong>　討論逐步把焦點轉到現有維護服務的問題。</p><p class="wiki-concept"><strong>漸進式意義解構</strong>　多輪互動可以逐步鬆動原本理所當然的解釋，讓團隊看到可採取的其他做法。</p><div class="callout card-highlight">律所最後改為改善地端代管，調整的是問題定義與採購選擇。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>多方協商可能改變問題本身。律所從評估上雲，轉向處理既有維護服務的問題。</span></p>
+<template class="slide-notes"><p>律所原先認為上雲可以省錢。隨著廠商與內部人員互動，他們逐漸重新理解問題，最後改為改善地端代管服務。採購過程也讓各方重新確認自己想解決什麼。</p><p>Wiki｜<a href="../../wiki/sources/Yeow-Chua-2020.html">Yeow &amp; Chua 2020，維度 C 的招標與案例發現</a> · <a href="../../wiki/concepts/Sensebreaking-and-Requisite-Variety.html">意義解構與必備多樣性</a></p></template>
+</div></section>
+<section class="slide" id="slide-7" aria-labelledby="title-7">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag tag-accent">AI 應用 · 假想情境</span></div>
+<h1 class="slide-title" id="title-7" tabindex="-1">模型上線後，現場要改什麼？</h1></div>
+<span class="slide-number-display" aria-hidden="true">07 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-4col"><li class="bauhaus-card card-accent-border"><span class="step-number" aria-hidden="true">01</span><h2 class="card-title">系統</h2><div class="card-body"><p><strong>輸出如何進流程</strong>　地端模型在公司環境標記疑似異常訂單。</p><p class="wiki-concept"><strong>輸出不確定性</strong>　Wiki 將生成式 AI 輸出的不確定性列為採納研究問題。即使模型在組織內運行，提示是否可採用仍須依情境判斷。</p><div class="callout card-highlight">團隊要定義提示送到哪個工作環節，並指定誰先接手。</div></div></li>
+<li class="bauhaus-card card-blue-border"><span class="step-number" aria-hidden="true">02</span><h2 class="card-title">人員</h2><div class="card-body"><p><strong>何時需要人工決定</strong>　處理人員核對原始訂單與處理紀錄，再判斷提示是否成立，以及貨品是否需要暫停出貨。</p><p class="wiki-concept"><strong>合理性與核對</strong>　合理的解釋有助於決定下一步。應用到 AI 時，仍需以原始資料核對影響出貨的判斷。</p><div class="callout card-highlight">先釐清誰有權暫停或恢復出貨。</div></div></li>
+<li class="bauhaus-card card-wood-border"><span class="step-number" aria-hidden="true">03</span><h2 class="card-title">倉庫</h2><div class="card-body"><p><strong>物理空間怎麼改</strong>　若貨要等待複核，現場要安排暫放區、標示與搬運路徑，避免貨被誤出或擋住原有動線。</p><p class="wiki-concept"><strong>具身化線索</strong>　Wiki 的物質性概念指出，物件與空間能提供理解工作的線索。暫放區和搬運動線讓試辦流程可以被觀察。</p><div class="callout card-highlight">試辦時可以請倉庫同事實際走一遍搬運路線。</div></div></li>
+<li class="bauhaus-card card-dark-border"><span class="step-number" aria-hidden="true">04</span><h2 class="card-title">供應鏈</h2><div class="card-body"><p><strong>下游是否需要協調</strong>　停出貨可能影響庫存或補貨安排。</p><p class="wiki-concept"><strong>必備多樣性</strong>　Yeow 與 Chua 的案例顯示，多方觀點能幫助團隊看見單一部門容易忽略的限制。</p><div class="callout card-highlight">採購與庫存人員要釐清什麼情況需要通知供應商或修改排程。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>地端部署決定模型在哪裡執行。導入時還要安排人員覆核、現場動線與後續協調。</span></p>
+<template class="slide-notes"><p>公司可以先確認模型在哪裡跑，也要釐清誰會使用輸出、哪種提示需要查證，以及哪些後續動作需要人工核准。如果異常訂單的貨品要先暫停出貨，現場可能需要設待複核區、調整動線。後續是否改動補貨或供應商協調，要看公司怎麼設計流程。</p><p>Wiki｜<a href="../../wiki/gaps/GAP-AI-Adoption-Indeterminacy-vs-Human-Sensemaking.html">AI 採納缺口，AI 輸出不確定性與人工校對</a> · <a href="../../wiki/concepts/Sociomateriality-and-Artefacts.html">物質性</a> · <a href="../../wiki/concepts/Sensebreaking-and-Requisite-Variety.html">必備多樣性</a></p></template>
+</div></section>
+<section class="slide" id="slide-8" aria-labelledby="title-8">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag tag-accent">AI 應用 · 假想情境</span></div>
+<h1 class="slide-title" id="title-8" tabindex="-1">誰能把疑義說清楚？</h1><p class="slide-subtitle">有疑義時，讓掌握現場脈絡的人一起核對。</p></div>
+<span class="slide-number-display" aria-hidden="true">08 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-3col"><li class="bauhaus-card card-accent-border"><h2 class="card-title">哪一筆提示有疑義？</h2><div class="card-body"><p><strong>指出具體疑義</strong>　把「AI 好像判錯」變成可查證的問題，例如指出哪一筆訂單被標記，以及哪一項資料與提示不符。</p><p class="wiki-concept"><strong>闡明</strong>　把模糊疑慮轉成其他人能檢查的說法，是讓個人經驗進入團隊討論的一步。</p><div class="callout card-highlight">記下訂單編號與有疑義的欄位，方便其他人一起核對。</div></div></li>
+<li class="bauhaus-card card-blue-border"><h2 class="card-title">用什麼材料核對？</h2><div class="card-body"><p><strong>核對判斷依據</strong>　用原始訂單和處理紀錄核對提示。</p><p class="wiki-concept"><strong>情緒作為線索</strong>　Maitlis 等人（2013）指出，情緒會影響意義建構。對被糾錯的擔心，可以成為重看覆核責任的起點。</p><div class="callout card-highlight">若同事擔心被糾錯，也要說清楚誰覆核，以及哪些結果會列為錯誤。</div></div></li>
+<li class="bauhaus-card card-wood-border"><h2 class="card-title">還需要找誰？</h2><div class="card-body"><p><strong>補充系統缺少的脈絡</strong>　讓熟悉採購或庫存的人補充該筆訂單的處理背景，協助團隊解釋為什麼要採納、暫緩或推翻提示。</p><p class="wiki-concept"><strong>人作為轉譯者</strong>　Wiki 把補足脈絡與解釋輸出如何影響信任，列為待研究的問題。這裡用訂單情境示範可能的互動。</p><div class="callout card-highlight">熟悉流程的同事能補充例外情況，例如訂單是否曾臨時更改。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>把疑慮說成可查證的問題，團隊才有辦法一起判斷如何使用 AI 提示。</span></p>
+<template class="slide-notes"><p>專案負責人可以請目前負責糾錯的人指出哪一筆異常提示有疑義，再邀請採購或庫存同事一起核對原始訂單。能具體說明輸出的限制與適用範圍，是團隊討論是否採用時的一種人類轉譯。它如何影響信任，仍是 Wiki 提出的研究問題。</p><p>Wiki｜<a href="../../wiki/gaps/GAP-Human-Articulation-and-Trust-Building-in-AI.html">人類轉譯與信任缺口，情境補充與 RQ 2</a> · <a href="../../wiki/sources/Maitlis-2013.html">Maitlis et al. 2013</a></p></template>
+</div></section>
+<section class="slide" id="slide-9" aria-labelledby="title-9">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag ">課堂練習 · 30 秒</span></div>
+<h1 class="slide-title" id="title-9" tabindex="-1">怎麼把四種理解帶進同一場會議？</h1><p class="slide-subtitle">題目沿用地端 AI 訂單異常案例。從部署、效益、現場動線或工作被糾錯挑一種觀點。</p></div>
+<span class="slide-number-display" aria-hidden="true">09 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-3col"><li class="bauhaus-card card-accent-border"><h2 class="card-title">一個待查證的問題</h2><div class="card-body"><p><strong>問到可查證</strong>　把「現場會更麻煩」縮小成可以確認的問題，例如待複核的貨會不會擋到目前的出貨動線。</p><p class="wiki-concept"><strong>察覺與括注</strong>　把複雜情境縮小到一條可查證的線索，讓其他人知道你從哪裡開始判斷。</p><div class="callout card-highlight">現場可以確認待複核區的位置，以及它是否會擋住原有動線。</div></div></li>
+<li class="bauhaus-card card-blue-border"><h2 class="card-title">一位應參與的人</h2><div class="card-body"><p><strong>找掌握脈絡的人</strong>　邀請實際搬貨或安排出貨的同事。</p><p class="wiki-concept"><strong>多方觀點</strong>　讓不同工作角色說出掌握的資訊，可以補進提案原先沒有涵蓋的現場條件。</p><div class="callout card-highlight">請他們指出貨通常從哪裡進出，以及哪個位置可以暫放。</div></div></li>
+<li class="bauhaus-card card-wood-border"><h2 class="card-title">一個下一步</h2><div class="card-body"><p><strong>設計一個試做</strong>　用一筆歷史訂單試跑提示、暫放、覆核與出貨。</p><p class="wiki-concept"><strong>行動與回饋</strong>　試做可以讓抽象疑慮變成可觀察的結果，團隊再依結果修正理解和作法。</p><div class="callout card-highlight">觀察在哪個環節需要額外的空間或人手。</div></div></li>
+</ul>
+
+<p class="slide-summary"><strong>小結</strong><span>把各自的理解變成可以查證的問題、應參與的人，以及一個可以試做的下一步。</span></p>
+<template class="slide-notes"><p>給大家 30 秒。例如，若同事擔心自己的工作被 AI 糾錯，可以先問哪些提示會被當成個人錯誤，請現場同事和主管一起確認覆核規則，再用歷史訂單試跑。若從現場流程出發，可以找倉庫同事實際走一遍待複核貨品的動線。</p><p>Wiki｜<a href="../../wiki/concepts/Noticing-and-Bracketing.html">察覺與括注</a> · <a href="../../wiki/concepts/Articulation-and-Sensegiving.html">意義賦予</a> · <a href="../../wiki/concepts/Enactment-Theory.html">行動賦意</a></p></template>
+</div></section>
+<section class="slide" id="slide-10" aria-labelledby="title-10">
+<div class="slide-header"><div><div class="slide-badge-row"><span class="slide-tag ">回顧</span></div>
+<h1 class="slide-title" id="title-10" tabindex="-1">從察覺線索到團隊行動</h1></div>
+<span class="slide-number-display" aria-hidden="true">10 / 10</span></div>
+<div class="slide-body">
+<ul class="grid-3col"><li class="bauhaus-card card-accent-border"><h2 class="card-title">護理</h2><div class="card-body"><p><strong>看見並說出線索</strong>　護士觀察到細微變化，資深同事用熟悉的病例解釋這組變化，讓其他成員理解疑慮。</p><p class="wiki-concept"><strong>Weick 等人（2005）</strong>　意義建構從察覺、說明與行動中展開，暫時的解釋會隨新線索更新。</p><div class="callout card-highlight">用團隊熟悉的例子說明變化，讓沒有在場的人也能理解疑慮。</div></div></li>
+<li class="bauhaus-card card-blue-border"><h2 class="card-title">律所</h2><div class="card-body"><p><strong>讓不同解釋進入討論</strong>　律所與廠商在招標往返中逐步重看原先假設，最後連採購要解決的問題都改變了。</p><p class="wiki-concept"><strong>Yeow 與 Chua（2020）</strong>　當不同參與者重新檢視初始假設，協商可能改變團隊對問題與可行方案的理解。</p><div class="callout card-highlight">當多方開始重看假設，也可能連採購目標一起改寫。</div></div></li>
+<li class="bauhaus-card card-wood-border"><h2 class="card-title">AI 導入</h2><div class="card-body"><p><strong>根據線索決定行動</strong>　遇到 AI 提示有疑義時，團隊可以找人補充情境、核對紀錄，再決定是否暫停或調整流程。</p><p class="wiki-concept"><strong>Wiki 的 AI 研究缺口</strong>　情境補充、人工覆核與信任之間如何連動，仍有待透過實際組織研究釐清。</p><div class="callout card-highlight">先約定哪種提示需要人工覆核，再安排試辦。</div></div></li>
+</ul>
+<p class="slide-summary"><strong>小結</strong><span>從護理到科技採購，組織成員透過交換線索與解釋，逐步形成下一步行動。</span></p>
+<p class="callout">研究問題｜人類轉譯如何影響團隊對 AI 輸出的信任？</p>
+<template class="slide-notes"><p>護理故事讓我們看到解釋如何在對話裡變得可理解，採購案例顯示多方互動可以改變對問題的理解。在 AI 情境中，我們也能追問誰看到什麼、團隊如何核對，以及接下來由誰行動。</p><p>Wiki｜<a href="../../wiki/synthesis/Literature-Dialogue-Matrix.html">文獻對話矩陣</a> · <a href="../../wiki/gaps/GAP-Human-Articulation-and-Trust-Building-in-AI.html">人類轉譯與信任缺口</a></p></template>
+</div></section>
+</main>
+<footer class="bottom-bar">
+<div class="slide-indicator"><span class="current-step" id="counter" aria-live="polite"></span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress"></div></div></div>
+<div class="nav-buttons"><button class="btn-nav" id="prev" type="button">← 上一頁</button><button class="btn-nav" id="next" type="button">下一頁 →</button></div>
+<span id="message" role="status" hidden></span>
+</footer>
+<dialog id="toc" aria-labelledby="toc-heading"><h2 id="toc-heading">內容導覽</h2><div class="toc-groups" id="toc-groups"></div><form method="dialog"><button class="btn-action">關閉</button></form></dialog>
+<dialog id="reader-notes" aria-labelledby="reader-notes-heading">
+<h2 id="reader-notes-heading">讀者筆記與 Wiki 出處</h2>
+<div id="reader-notes-content"></div>
+<form method="dialog"><button class="btn-action">關閉</button></form>
+</dialog>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const byId = id => document.getElementById(id);
+const toc = byId('toc');
+const readerNotes = byId('reader-notes');
+const prev = byId('prev'), next = byId('next');
+const notesButton = byId('notes'), fullButton = byId('fullscreen');
+let current = 0;
+let pointerX, pointerY;
+const deck = document.querySelector('.deck');
+const tocButtons = [];
+deck.addEventListener('pointermove', event => {
+  if (event.pointerType !== 'mouse' || (event.clientX === pointerX && event.clientY === pointerY)) return;
+  pointerX = event.clientX;
+  pointerY = event.clientY;
+  deck.classList.add('hover-ready');
+});
+function show(index, focus = true) {
+  deck.classList.remove('hover-ready');
+  current = Math.max(0, Math.min(index, slides.length - 1));
+  slides.forEach((slide, i) => slide.hidden = i !== current);
+  prev.disabled = current === 0;
+  next.disabled = current === slides.length - 1;
+  byId('counter').textContent = (current + 1) + ' / ' + slides.length;
+  byId('progress').style.width = ((current + 1) / slides.length * 100) + '%';
+  if (focus) slides[current].querySelector('h1').focus({preventScroll:true});
+  deck.scrollTop = 0;
+  tocButtons.forEach((button, i) => {
+    if (i === current) button.setAttribute('aria-current', 'step');
+    else button.removeAttribute('aria-current');
+  });
+}
+function toggleNotes() {
+  if (readerNotes.open) {
+    readerNotes.close();
+    return;
+  }
+  const template = slides[current].querySelector('.slide-notes');
+  byId('reader-notes-content').replaceChildren(template.content.cloneNode(true));
+  readerNotes.showModal();
+}
+async function full() {
+  const msg = byId('message');
+  msg.hidden = true;
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch {
+    msg.textContent = '這個瀏覽器無法切換全螢幕。';
+    msg.hidden = false;
+  }
+}
+const chapters = [
+  ['核心概念', 0, 3],
+  ['組織互動與採納', 3, 6],
+  ['AI 應用與練習', 6, 10]
+];
+chapters.forEach(([title, start, end]) => {
+  const group = document.createElement('section');
+  group.className = 'toc-group';
+  const heading = document.createElement('h3');
+  heading.textContent = title;
+  const list = document.createElement('ol');
+  slides.slice(start, end).forEach((slide, index) => {
+    const i = start + index;
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn-action';
+    const number = document.createElement('span');
+    number.className = 'toc-number';
+    number.textContent = String(i + 1).padStart(2, '0');
+    button.append(number, slide.querySelector('h1').textContent);
+    button.addEventListener('click', () => {toc.close(); show(i);});
+    item.append(button);
+    list.append(item);
+    tocButtons.push(button);
+  });
+  group.append(heading, list);
+  byId('toc-groups').append(group);
+});
+byId('menu').addEventListener('click', () => toc.showModal());
+notesButton.addEventListener('click', toggleNotes);
+fullButton.addEventListener('click', full);
+document.addEventListener('fullscreenchange', () => {
+  fullButton.textContent = document.fullscreenElement ? '離開全螢幕' : '全螢幕';
+});
+prev.addEventListener('click', () => show(current - 1));
+next.addEventListener('click', () => show(current + 1));
+document.addEventListener('keydown', event => {
+  if (readerNotes.open) {
+    if (event.key.toLowerCase() === 'n') readerNotes.close();
+    return;
+  }
+  if (toc.open || event.altKey || event.ctrlKey || event.metaKey || event.defaultPrevented) return;
+  const key = event.key.toLowerCase();
+  if (key === ' ' && event.target.closest('button, summary, a')) return;
+  const action = {
+    arrowright: () => show(current + 1), pagedown: () => show(current + 1), ' ': () => show(current + 1),
+    arrowleft: () => show(current - 1), pageup: () => show(current - 1),
+    home: () => show(0), end: () => show(slides.length - 1),
+    f: full, n: toggleNotes, m: () => toc.showModal()
+  }[key];
+  if (typeof action === 'function') {event.preventDefault(); action();}
+});
+show(0, false);
+</script>
+</body>
+</html>
